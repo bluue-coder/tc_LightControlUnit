@@ -3,6 +3,7 @@
     "REQUIREAUTH": 2,
     "VIRTUALDIRECTORIES": {
         "/": "www",
+        "/Blinker": "..\\..\\Blinker",
         "/Framework_PopUpWindow_Light": "..\\..\\Framework_PopUpWindow_Light"
     }
 }

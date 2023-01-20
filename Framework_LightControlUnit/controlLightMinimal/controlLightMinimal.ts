@@ -260,18 +260,23 @@ module TcHmi {
                                             // process opacity
                                             this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
                                             this.__ellipse.setOpacity(data.value.nBrightness / 100);
-                                        } else if (data.value.nBrightness == 0) {
-                                            this.__ellipse.setOpacity(1);
-                                            this.__ellipse.setFillColor({ color: 'black' });
+                                            
+                                            if (data.value.nBrightness == 0) {
+                                                this.__ellipse.setOpacity(0.5);
+                                                this.__ellipse.setFillColor({ color: 'black' });
+                                            }
+                                        } else {
                                             // process opacity if no brightness is available
                                             this.__ellipse.setOpacity(1);
                                         }
                                         //process state and visibility
                                         if (data.value.bState != null) {
                                             if (data.value.bState) {
-                                                this.__ellipse.setVisibility("Visible");
+                                                this.__ellipse.setOpacity(1);
+                                                this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
                                             } else {
-                                                this.__ellipse.setVisibility("Hidden");
+                                                this.__ellipse.setOpacity(0.5);
+                                                this.__ellipse.setFillColor({ color: 'black' });
                                             }
                                         }
                                         //process id

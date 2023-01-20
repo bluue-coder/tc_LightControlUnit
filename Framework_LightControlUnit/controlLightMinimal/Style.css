@@ -2,7 +2,7 @@
 
 .TcHmi_Controls_Framework_LightControlUnit_controlLightMinimal {
     overflow: hidden;
-    border: 2px solid;
+    border: none;
 }
 
 .TcHmi_Controls_Framework_LightControlUnit_controlLightMinimal-Template {
