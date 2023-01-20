@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_LightDimmable" Id="{f14caa0a-722a-4bf1-a6f2-9567e3a30e6c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightDimmable EXTENDS FB_LightBase IMPLEMENTS I_LightDimmable
+VAR
+	nBrightness	: USINT := 100;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Brightness" Id="{66812941-e28d-4f85-abaf-bc91cf97780e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Brightness : USINT;]]></Declaration>
+      <Get Name="Get" Id="{ff93fac2-27a7-447a-8b08-a19ebb311b66}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Brightness := nBrightness;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{332e252e-81df-40d2-af75-1dcc264f4c22}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nBrightness := Brightness;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_LightDimmable">
+      <LineId Id="18" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightDimmable.Brightness.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightDimmable.Brightness.Set">
+      <LineId Id="3" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

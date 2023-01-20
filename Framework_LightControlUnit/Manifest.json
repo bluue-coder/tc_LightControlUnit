@@ -1,0 +1,37 @@
+﻿{
+  "modules": [
+    {
+      "type": "Package",
+      "nugetId": "Beckhoff.TwinCAT.HMI.Framework"
+    },
+    {
+      "type": "Package",
+      "nugetId": "Beckhoff.TwinCAT.HMI.Controls"
+    },
+    {
+      "type": "Package",
+      "nugetId": "Beckhoff.TwinCAT.HMI.BA.Framework"
+    },
+    {
+      "type": "Control",
+      "basePath": "controlLightMinimal/",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI:201"
+    },
+    {
+      "type": "Control",
+      "basePath": "./controlPopUpLightDetails",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI:202"
+    }
+  ],
+  "provideMetadata": {
+    "toolbox": {
+      "Framework_LightControlUnit": {
+        "200": "Framework_LightControlUnit"
+      }
+    }
+  },
+  "$schema": ".hmiframework/Schema/Manifest.Schema.json",
+  "apiVersion": 1
+}

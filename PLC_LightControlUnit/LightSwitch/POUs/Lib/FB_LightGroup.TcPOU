@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_LightGroup" Id="{19f25f1a-18d9-4cfd-896f-2f3b9d975e5f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightGroup
+VAR
+	CurrentSizeOfLightGroup		: USINT := 0;
+	aLights						: ARRAY[0..MAIN.MAXIMUM_NUMBER_OF_LIGHTS-1] OF I_LightBase;
+	nCounter					: USINT;
+	
+	bIsOn						: bool := false;
+END_VAR
+
+// import all lights from main]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR nCounter := 0 TO CurrentSizeOfLightGroup - 1 DO
+	IF aLights[nCounter].State THEN
+		bIsOn := TRUE;
+		EXIT;
+	ELSE
+		IF nCounter = CurrentSizeOfLightGroup - 1 THEN
+			bIsOn := FALSE;
+		END_IF
+	END_IF
+END_FOR]]></ST>
+    </Implementation>
+    <Method Name="ImportLight" Id="{2725495e-2852-49f7-bfd1-5cb3d4b771d3}">
+      <Declaration><![CDATA[METHOD ImportLight : BOOL
+VAR_INPUT
+	iLight		: I_LightBase;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[aLights[CurrentSizeOfLightGroup]	:= iLight;
+CurrentSizeOfLightGroup := CurrentSizeOfLightGroup + 1;
+iLight.ID := CurrentSizeOfLightGroup;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBrightness" Id="{329af244-c0ff-48dc-8122-9466cb7fdce5}">
+      <Declaration><![CDATA[METHOD SetBrightness
+VAR_INPUT
+	nBrightness	: USINT;
+END_VAR
+VAR
+	nCounter: USINT;
+	iBrightness	: I_LightDimmable;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF aLights[nCounter] <> 0 THEN
+	FOR nCounter := 0 TO CurrentSizeOfLightGroup-1 DO
+		IF __QUERYINTERFACE(aLights[nCounter], iBrightness) THEN
+			iBrightness.Brightness := nBrightness;
+		END_IF
+	END_FOR
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TurnOFF" Id="{a83d100f-c41b-4130-8ead-8a196732aed6}">
+      <Declaration><![CDATA[METHOD TurnOFF
+VAR
+	nCounter	: USINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nCounter := 0 TO CurrentSizeOfLightGroup-1	DO
+	aLights[nCounter].State := FALSE;
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TurnON" Id="{a96c4366-e498-4aa9-b43c-4616a71ba20e}">
+      <Declaration><![CDATA[METHOD TurnON
+VAR
+	nCounter	: USINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nCounter := 0 TO CurrentSizeOfLightGroup-1	DO
+	aLights[nCounter].State := TRUE;
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_LightGroup">
+      <LineId Id="52" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="67" Count="3" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="60" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightGroup.ImportLight">
+      <LineId Id="5" Count="0" />
+      <LineId Id="13" Count="1" />
+    </LineIds>
+    <LineIds Name="FB_LightGroup.SetBrightness">
+      <LineId Id="47" Count="0" />
+      <LineId Id="50" Count="3" />
+      <LineId Id="48" Count="1" />
+    </LineIds>
+    <LineIds Name="FB_LightGroup.TurnOFF">
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightGroup.TurnON">
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

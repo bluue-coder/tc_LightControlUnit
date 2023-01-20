@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_LightBase" Id="{39719b6d-833f-4ef2-afd1-42b91cf29e24}">
+    <Declaration><![CDATA[INTERFACE I_LightBase EXTENDS __SYSTEM.IQueryInterface
+]]></Declaration>
+    <Property Name="ID" Id="{0d156c20-f81d-4493-a12c-e0789cfeb86e}">
+      <Declaration><![CDATA[PROPERTY ID : USINT]]></Declaration>
+      <Get Name="Get" Id="{a17ff519-695b-434f-b223-8163925c467f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{c4a90f44-115b-4e0b-92be-d515173e4870}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="State" Id="{0576a3eb-e9ad-4a58-9e4d-623558461fc4}">
+      <Declaration><![CDATA[PROPERTY PUBLIC State : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d8fedb75-476f-42eb-b9a8-36b0617fcd1e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{a032fb47-539c-4f1a-abf4-2b58e4b44394}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="Toggle" Id="{2041c29b-f883-4122-894e-14e4e342b6dd}">
+      <Declaration><![CDATA[METHOD Toggle]]></Declaration>
+    </Method>
+    <Method Name="TurnOFF" Id="{996e40d5-a823-4391-8fc0-3f8b18fe357e}">
+      <Declaration><![CDATA[METHOD TurnOFF]]></Declaration>
+    </Method>
+    <Method Name="TurnON" Id="{a4e99652-e0d2-4c30-a533-09b77f612dd9}">
+      <Declaration><![CDATA[METHOD TurnON]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

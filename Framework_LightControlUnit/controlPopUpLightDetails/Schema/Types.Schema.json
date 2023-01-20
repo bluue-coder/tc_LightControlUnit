@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.Controls.Framework_LightControlUnit.controlPopUpLightDetails": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "controlPopUpLightDetails",
+      "frameworkControlNamespace": "TcHmi.Controls.Framework_LightControlUnit"
+    }
+  }
+}

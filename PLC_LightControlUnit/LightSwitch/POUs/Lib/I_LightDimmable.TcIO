@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_LightDimmable" Id="{88a95757-277b-49ff-95f3-abd80b37f3b7}">
+    <Declaration><![CDATA[INTERFACE I_LightDimmable EXTENDS I_LightBase
+]]></Declaration>
+    <Property Name="Brightness" Id="{622b1b12-8ea9-41ce-a6ee-84ff45cd706d}">
+      <Declaration><![CDATA[PROPERTY Brightness : USINT]]></Declaration>
+      <Get Name="Get" Id="{be354563-f0ab-49d8-9e60-c53b1b49b282}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0ff90000-552a-4d06-b039-b26c2ff73e94}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

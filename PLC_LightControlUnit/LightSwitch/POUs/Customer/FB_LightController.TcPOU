@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_LightController" Id="{9da3a0db-3198-4dea-825b-a1e081e7674e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightController
+VAR
+	_iLight									: I_LightBase;
+	_iLightB								: I_LightDimmable;
+	                    	    			
+	fbLightGroup							: FB_LightGroup;
+	                    	    			
+	fbLightBase_1							: FB_LightBase;
+	fbLightBase_2							: FB_LightBase;
+	fbLightBase_3							: FB_LightBase;
+	fbLightBase_4							: FB_LightBase;
+	fbLightDimmable_5						: FB_LightDimmable;
+	fbLightDimmable_6						: FB_LightDimmable;
+	fbLightDimmable_7						: FB_LightDimmable;
+	fbLightDimmable_8						: FB_LightDimmable;
+	                    	    			
+	nBrightness								: USINT := 100;
+	                    	    			
+	bToggle									: BOOL;
+	bSwitch									: BOOL;
+	bSetBrightness							: BOOL;
+	                    	    			
+	tToggle									: R_TRIG;
+	tSwitchON								: R_TRIG;
+	tSwitchOFF								: F_TRIG;
+	tSetBrightness							: R_TRIG;
+	                    	    			
+	bGroupSwitch							: BOOL;
+	bSetGroupBrightness						: BOOL;
+	                    	    			
+	tGroupSwitchON							: R_TRIG;
+	tGroupSwitchOFF							: F_TRIG;
+	tSetGroupBrightness						: R_TRIG;
+	                    	    			
+	eSwitchOptions							: (WAIT, TOGGLE, SWITCHON, SWITCHOFF, SETBRIGHTNESS, GROUPSWITCHON, GROUPSWITCHOFF, SETGROUPBRIGHTNESS);
+	
+	eSwitchControlledLightObjectByLightID	: (LIGHT_ONE, LIGHT_TWO, LIGHT_THREE, LIGHT_FOUR, LIGHT_FIVE, LIGHT_SIX, LIGHT_SEVEN, LIGHT_EIGHT);
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbLightGroup();
+
+CASE eSwitchOptions OF
+	WAIT:
+		//do nothing
+	TOGGLE:
+		_iLight.Toggle();
+		eSwitchOptions := WAIT;
+	SWITCHON:
+		_iLight.TurnON();
+		eSwitchOptions := WAIT;
+	SWITCHOFF:
+		_iLight.TurnOFF();
+		eSwitchOptions := WAIT;
+	SETBRIGHTNESS:
+		IF __QUERYINTERFACE(_iLight, _iLightB) THEN
+			_iLightB.Brightness := nBrightness;	
+		END_IF
+		eSwitchOptions := WAIT;
+	GROUPSWITCHON:
+		fbLightGroup.TurnON();
+		eSwitchOptions := WAIT;
+	GROUPSWITCHOFF:
+		fbLightGroup.TurnOFF();
+		eSwitchOptions := WAIT;
+	SETGROUPBRIGHTNESS:
+		fbLightGroup.SetBrightness(nBrightness);
+		eSwitchOptions := WAIT;
+END_CASE
+
+CASE eSwitchControlledLightObjectByLightID OF
+	LIGHT_ONE:
+		ipLight := fbLightBase_1;
+	LIGHT_TWO:
+		ipLight := fbLightBase_2;
+	LIGHT_THREE:
+		ipLight := fbLightBase_3;
+	LIGHT_FOUR:
+		ipLight := fbLightBase_4;
+	LIGHT_FIVE:
+		ipLight := fbLightDimmable_5;
+	LIGHT_SIX:
+		ipLight := fbLightDimmable_6;
+	LIGHT_SEVEN:
+		ipLight := fbLightDimmable_7;
+	LIGHT_EIGHT:
+		ipLight := fbLightDimmable_8;
+END_CASE
+
+tToggle(CLK := bToggle);
+tSwitchON(CLK := bSwitch);
+tSwitchOFF(CLK := bSwitch);
+tSetBrightness(CLK := bSetBrightness);
+
+tGroupSwitchOFF(CLK := bGroupSwitch);
+tGroupSwitchON(CLK := bGroupSwitch);
+tSetGroupBrightness(CLK := bSetGroupBrightness);
+
+IF tToggle.Q THEN
+	eSwitchOptions := TOGGLE;
+	bToggle := FALSE;									
+END_IF
+
+IF tSwitchON.Q THEN
+	eSwitchOptions := SWITCHON;
+END_IF
+
+IF tSwitchOFF.Q THEN
+	eSwitchOptions := SWITCHOFF;
+END_IF
+
+IF tSetBrightness.Q THEN
+	eSwitchOptions := SETBRIGHTNESS;
+	bSetBrightness := FALSE;
+END_IF
+
+IF tGroupSwitchON.Q THEN
+	eSwitchOptions := GROUPSWITCHON;
+END_IF
+
+IF tGroupSwitchOFF.Q THEN
+	eSwitchOptions := GROUPSWITCHOFF;
+END_IF
+
+IF tSetGroupBrightness.Q THEN
+	eSwitchOptions := SETGROUPBRIGHTNESS;
+	bSetGroupBrightness := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{b012ca00-77bf-49e0-b6a1-96f66c4d5657}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains	: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode		: BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_iLight := fbLightBase_1;
+
+fbLightGroup.ImportLight(fbLightBase_1);
+fbLightGroup.ImportLight(fbLightBase_2);
+fbLightGroup.ImportLight(fbLightBase_3);
+fbLightGroup.ImportLight(fbLightBase_4);
+fbLightGroup.ImportLight(fbLightDimmable_5);
+fbLightGroup.ImportLight(fbLightDimmable_6);
+fbLightGroup.ImportLight(fbLightDimmable_7);
+fbLightGroup.ImportLight(fbLightDimmable_8);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ipLight" Id="{ec405ff9-3dab-4d63-9f5a-8feda15492ff}">
+      <Declaration><![CDATA[PROPERTY ipLight : I_LightBase]]></Declaration>
+      <Get Name="Get" Id="{0ffc156d-193d-45e5-b922-0cc8c69053fe}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ipLight := _iLight;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2c898839-6876-40e2-8be5-95ed55e6501b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_iLight := ipLight;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_LightController">
+      <LineId Id="987" Count="1" />
+      <LineId Id="860" Count="27" />
+      <LineId Id="923" Count="16" />
+      <LineId Id="888" Count="0" />
+      <LineId Id="985" Count="0" />
+      <LineId Id="978" Count="6" />
+      <LineId Id="889" Count="0" />
+      <LineId Id="986" Count="0" />
+      <LineId Id="890" Count="29" />
+    </LineIds>
+    <LineIds Name="FB_LightController.FB_init">
+      <LineId Id="45" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="66" Count="5" />
+    </LineIds>
+    <LineIds Name="FB_LightController.ipLight.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightController.ipLight.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

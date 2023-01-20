@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{dcb8f025-7b78-44de-a3ef-76b85cfb3e40}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	fbLightController	: FB_LightController;
+END_VAR
+VAR CONSTANT
+	MAXIMUM_NUMBER_OF_LIGHTS	: USINT := 8;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbLightController();]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

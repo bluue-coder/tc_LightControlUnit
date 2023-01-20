@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_LightBase" Id="{ee94f5f8-49a0-4004-80b5-30dbbdf9bbd0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LightBase IMPLEMENTS I_LightBase
+
+VAR
+	sName				: STRING;
+	sAddress			: STRING;
+	bState				: BOOL;
+	nLightID			: USINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="ID" Id="{97549fe9-26e8-47be-9c3e-102e6b2b0fcd}">
+      <Declaration><![CDATA[PROPERTY ID : USINT]]></Declaration>
+      <Get Name="Get" Id="{75de85c8-a22f-4e91-a3b0-ab4c41e69f8e}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ID := nLightID;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f68e7ef6-0a59-43b8-8082-d5d4536719aa}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[nLightID := ID;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="State" Id="{25721263-ebdb-4ddb-bee8-5daa2e6c7902}">
+      <Declaration><![CDATA[PROPERTY PUBLIC State : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e0f5c6fd-9025-45f7-ad22-1a48dcc53242}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := bState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{727318e8-ea11-4911-bef6-80c4799add69}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bState := State;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Toggle" Id="{f94300be-42bc-492e-b93c-ad7b802327d9}">
+      <Declaration><![CDATA[METHOD Toggle]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bState THEN
+	THIS^.TurnON();
+ELSE
+	THIS^.TurnOFF();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TurnOFF" Id="{4ffa847b-646b-4ec6-83a7-8fe43eb89af7}">
+      <Declaration><![CDATA[METHOD TurnOFF]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bState := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TurnON" Id="{2f5892f3-5587-43be-bc99-96832e112373}">
+      <Declaration><![CDATA[METHOD TurnON]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bState := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_LightBase">
+      <LineId Id="18" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.ID.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.ID.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.State.Get">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.State.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.Toggle">
+      <LineId Id="15" Count="1" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.TurnOFF">
+      <LineId Id="6" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_LightBase.TurnON">
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
