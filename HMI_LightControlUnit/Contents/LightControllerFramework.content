@@ -442,7 +442,7 @@
 
 
 </div>
-<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="80" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-text="LightController\nby MerrinB" data-tchmi-top="10" data-tchmi-top-unit="%" data-tchmi-word-wrap="true" data-tchmi-right="0" data-tchmi-right-unit="%" data-tchmi-width-mode="Value" data-tchmi-width="100" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="%f%%ctrl%TcHmiTextblock::RenderedHeight%/ctrl%*0.25%/f%">
+<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="80" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-text="LightController\nby MerrinB" data-tchmi-top="10" data-tchmi-top-unit="%" data-tchmi-word-wrap="true" data-tchmi-right="2" data-tchmi-right-unit="%" data-tchmi-width-mode="Value" data-tchmi-width="100" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="%f%%ctrl%TcHmiTextblock::RenderedHeight%/ctrl%*0.25%/f%" data-tchmi-text-horizontal-alignment="Right">
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
