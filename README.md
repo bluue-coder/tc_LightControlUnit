@@ -20,5 +20,4 @@ To view the GUI live:
 Open HMI_LightControlUnit/Desktop.view and right-click the file in the Solution Explorer.
 Choose Show in Live-View...
 
-
 Happy Coding!
