@@ -48,40 +48,10 @@
       "name": "Fonts/Fonts.css",
       "description": "",
       "type": "Stylesheet"
-    },
-    {
-      "name": "UserControls/UserControls_old/GetBrightness.js",
-      "description": "",
-      "type": "JavaScript"
     }
   ],
-  "userControls": [
-    {
-      "url": "UserControls/UserControls_old/LightMinimal.usercontrol"
-    }
-  ],
+  "userControls": [],
   "content": [
-    {
-      "url": "Contents/Contents_old/Content1.content",
-      "preload": false,
-      "keepAlive": true,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Contents_old/LightController.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Contents_old/PopUpDetails.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
     {
       "url": "Contents/LightControllerFramework.content",
       "preload": false,
@@ -98,11 +68,7 @@
       "preloadBindings": false
     }
   ],
-  "userFunctions": [
-    {
-      "url": "UserControls/UserControls_old/GetBrightness.js"
-    }
-  ],
+  "userFunctions": [],
   "symbols": {
     "internal": {},
     "themedResources": {}

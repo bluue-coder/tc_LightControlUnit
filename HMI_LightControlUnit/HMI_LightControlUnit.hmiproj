@@ -116,33 +116,9 @@
   <Target Name="Clean" DependsOnTargets="$(CleanDependsOn)" />
   <Target Name="ReBuild" DependsOnTargets="Clean; Build" />
   <ItemGroup>
-    <Content Include="Contents\Contents_old\Content1.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Contents_old\LightController.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Contents_old\PopUpDetails.content">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Contents\LightControllerFramework.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UserControls\UserControls_old\GetBrightness.function.json">
-      <SubType>Content</SubType>
-      <DependentUpon>UserControls\UserControls_old\GetBrightness.ts</DependentUpon>
-    </Content>
-    <Content Include="UserControls\UserControls_old\GetBrightness.ts">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UserControls\UserControls_old\LightMinimal.usercontrol">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UserControls\UserControls_old\LightMinimal.usercontrol.json">
-      <SubType>Content</SubType>
-      <DependentUpon>UserControls\UserControls_old\LightMinimal.usercontrol</DependentUpon>
-    </Content>
-    <Folder Include="Contents\Contents_old" />
     <Folder Include="Fonts\" />
     <Folder Include="Images" />
     <Folder Include="Images\Manifest" />
@@ -428,7 +404,6 @@
       <Visible>false</Visible>
     </Content>
     <Folder Include="Themes\Base\Images\" />
-    <Folder Include="UserControls\UserControls_old" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework_LightControlUnit\Framework_LightControlUnit.hmiextproj">
