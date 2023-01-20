@@ -6,11 +6,11 @@ module TcHmi {
     export module Controls {
         export module Framework_LightControlUnit {
             enum TextboxIdentifier {
-                bState,
-                sName,
-                sAddress,
-                nLightID,
-                nBrightness
+                Status,
+                Name,
+                Address,
+                ID,
+                Brightness
             }
             enum Boolean {
                 TRUE,
@@ -87,12 +87,12 @@ module TcHmi {
                     //    throw new Error("Cannot read Light data!");
 
                     if (this.__readwriteables.size == 0) {
-                        for (let i: TextboxIdentifier = TextboxIdentifier.bState; i <= TextboxIdentifier.nBrightness; i++) {
+                        for (let i: TextboxIdentifier = TextboxIdentifier.Status; i <= TextboxIdentifier.Brightness; i++) {
                             const label = ControlFactory.create<TcHmi.Controls.Beckhoff.TcHmiTextblock>('TcHmi.Controls.Beckhoff.TcHmiTextblock', this.__id + '.textblock-' + TextboxIdentifier[i], this);
                             const wtch_ipt = ControlFactory.create<TcHmi.Controls.Beckhoff.TcHmiTextbox>('TcHmi.Controls.Beckhoff.TcHmiTextbox', this.__id + '.textbox-' + TextboxIdentifier[i], this);
                             if (wtch_ipt == null || label == null)
                                 throw new Error("Textbox couldn't be created!");
-                            label.setText(TextboxIdentifier[i] + ':');
+                            label.setText('Lamp ' + TextboxIdentifier[i] + ':');
                             label.setTextVerticalAlignment("Center");
                             label.setTextHorizontalAlignment("Right");
 
@@ -153,7 +153,7 @@ module TcHmi {
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
 
-                    let brightnessInput = this.__readwriteables.get(TextboxIdentifier.nBrightness)!.read_write;
+                    let brightnessInput = this.__readwriteables.get(TextboxIdentifier.Brightness)!.read_write;
                     this.__destroyBrightnessSetter = EventProvider.register(brightnessInput.getId() + '.onUserInteractionFinished', () => {
                         if (check()) {
                             if (brightnessInput.getText() != "") {
@@ -166,7 +166,7 @@ module TcHmi {
                         }
                     });
 
-                    let nameInput = this.__readwriteables.get(TextboxIdentifier.sName)!.read_write;
+                    let nameInput = this.__readwriteables.get(TextboxIdentifier.Name)!.read_write;
 
                     this.__destroyNameSetter = EventProvider.register(nameInput.getId() + '.onUserInteractionFinished', () => {
                         if (check()) {
@@ -180,7 +180,7 @@ module TcHmi {
                         }
                     });
 
-                    let addressInput = this.__readwriteables.get(TextboxIdentifier.sAddress)!.read_write;
+                    let addressInput = this.__readwriteables.get(TextboxIdentifier.Address)!.read_write;
 
                     this.__destroyAddressSetter = EventProvider.register(addressInput.getId() + '.onUserInteractionFinished', () => {
                         if (check()) {
@@ -194,10 +194,10 @@ module TcHmi {
                         }
                     });
 
-                    //let stateInput = this.__readwriteables.get(TextboxIdentifier.bState)!.read_write;
+                    //let stateInput = this.__readwriteables.get(TextboxIdentifier.Status)!.read_write;
                     //  this.__destroyStateSetter = EventProvider.register(stateInput.getId() + '.onUserInteractionFinished', () => {
                     //       if (check()) {if (stateInput.getText() != "") {
-                    //          this.__value!.bState = stateInput.getText();
+                    //          this.__value!.Status = stateInput.getText();
                     //          this.__light!.write(this.__value, (result) => {
                     //              if (result.error != 0)
                     //                  TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));
@@ -282,25 +282,28 @@ module TcHmi {
                     // ...
                     if (this.__light == null) {
                     } else {
-                        this.__destroyLightWatch = this.__light.watch((__value) => {
+                        this.__destroyLightWatch = this.__light.watch((__instanceOfLight) => {
                             if (this.__readwriteables != null) {
-                                if (__value.value != null) {
-                                    if (isILight(__value.value)) {
-                                        this.__value = __value.value;
-                                        if (__value.value.bState != null) {
-                                            this.__readwriteables.get(TextboxIdentifier.bState)?.read_write.setPlaceholder(__value.value.bState.toString());
+                                if (__instanceOfLight.value != null) {
+                                    if (isILight(__instanceOfLight.value)) {
+                                        this.__value = __instanceOfLight.value;
+                                        if (__instanceOfLight.value.bState != null) {
+                                            this.__readwriteables.get(TextboxIdentifier.Status)?.read_write.setPlaceholder(__instanceOfLight.value.bState.toString());
                                         }
-                                        if (__value.value.sName != null) {
-                                            this.__readwriteables.get(TextboxIdentifier.sName)?.read_write.setPlaceholder(__value.value.sName);
+                                        if (__instanceOfLight.value.sName != null) {
+                                            this.__readwriteables.get(TextboxIdentifier.Name)?.read_write.setPlaceholder(__instanceOfLight.value.sName);
                                         }
-                                        if (__value.value.sAddress != null) {
-                                            this.__readwriteables.get(TextboxIdentifier.sAddress)?.read_write.setPlaceholder(__value.value.sAddress);
+                                        if (__instanceOfLight.value.sAddress != null) {
+                                            this.__readwriteables.get(TextboxIdentifier.Address)?.read_write.setPlaceholder(__instanceOfLight.value.sAddress);
                                         }
-                                        if (__value.value.nLightID != null) {
-                                            this.__readwriteables.get(TextboxIdentifier.nLightID)?.read_write.setPlaceholder(__value.value.nLightID.toString());
+                                        if (__instanceOfLight.value.nLightID != null) {
+                                            this.__readwriteables.get(TextboxIdentifier.ID)?.read_write.setPlaceholder(__instanceOfLight.value.nLightID.toString());
                                         }
-                                        if (__value.value.nBrightness != null) {
-                                            this.__readwriteables.get(TextboxIdentifier.nBrightness)?.read_write.setPlaceholder(__value.value.nBrightness.toString());
+                                        if (__instanceOfLight.value.nBrightness != null && __instanceOfLight.value.nBrightness != undefined) {
+                                            this.__readwriteables.get(TextboxIdentifier.Brightness)?.read_write.setPlaceholder(__instanceOfLight.value.nBrightness.toString());
+                                        } else {
+                                            this.__readwriteables.get(TextboxIdentifier.Brightness)?.read_write.setPlaceholder("not applicable");
+                                            //this.__elementTemplateRoot.remove(this.__id + '.textbox-Brightness');
                                         }
                                     }
                                 }
