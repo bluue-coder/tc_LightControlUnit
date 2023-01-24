@@ -8,19 +8,14 @@ var TcHmi;
     (function (Controls) {
         let Framework_LightControlUnit;
         (function (Framework_LightControlUnit) {
-            let TextboxIdentifier;
-            (function (TextboxIdentifier) {
-                TextboxIdentifier[TextboxIdentifier["Status"] = 0] = "Status";
-                TextboxIdentifier[TextboxIdentifier["Name"] = 1] = "Name";
-                TextboxIdentifier[TextboxIdentifier["Address"] = 2] = "Address";
-                TextboxIdentifier[TextboxIdentifier["ID"] = 3] = "ID";
-                TextboxIdentifier[TextboxIdentifier["Brightness"] = 4] = "Brightness";
-            })(TextboxIdentifier || (TextboxIdentifier = {}));
-            let Boolean;
-            (function (Boolean) {
-                Boolean[Boolean["TRUE"] = 0] = "TRUE";
-                Boolean[Boolean["FALSE"] = 1] = "FALSE";
-            })(Boolean || (Boolean = {}));
+            let DataRowIdentifier;
+            (function (DataRowIdentifier) {
+                DataRowIdentifier[DataRowIdentifier["Status"] = 0] = "Status";
+                DataRowIdentifier[DataRowIdentifier["Name"] = 1] = "Name";
+                DataRowIdentifier[DataRowIdentifier["Address"] = 2] = "Address";
+                DataRowIdentifier[DataRowIdentifier["ID"] = 3] = "ID";
+                DataRowIdentifier[DataRowIdentifier["Brightness"] = 4] = "Brightness";
+            })(DataRowIdentifier || (DataRowIdentifier = {}));
             class controlPopUpLightDetails extends TcHmi.Controls.System.TcHmiControl {
                 /*
                 Attribute philosophy
@@ -40,12 +35,7 @@ var TcHmi;
                 constructor(element, pcElement, attrs) {
                     /** Call base class constructor */
                     super(element, pcElement, attrs);
-                    //private __textbox1: TcHmi.Controls.Beckhoff.TcHmiTextbox | undefined;
-                    //private __textbox2: TcHmi.Controls.Beckhoff.TcHmiTextbox | undefined;
-                    //private __textbox3: TcHmi.Controls.Beckhoff.TcHmiTextbox | undefined;
-                    //private __textbox4: TcHmi.Controls.Beckhoff.TcHmiTextbox | undefined;
-                    //private __textbox5: TcHmi.Controls.Beckhoff.TcHmiTextbox | undefined;
-                    this.__readwriteables = new Map();
+                    this.__readwriteables = new Map;
                 }
                 /**
                   * If raised, the control object exists in control cache and constructor of each inheritation level was called.
@@ -66,24 +56,41 @@ var TcHmi;
                  */
                 __init() {
                     super.__init();
-                    //if (this.__value == null)
-                    //    throw new Error("Cannot read Light data!");
+                    let css_uniqueclass;
                     if (this.__readwriteables.size == 0) {
-                        for (let i = TextboxIdentifier.Status; i <= TextboxIdentifier.Brightness; i++) {
-                            const label = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextblock', this.__id + '.textblock-' + TextboxIdentifier[i], this);
-                            const wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextbox', this.__id + '.textbox-' + TextboxIdentifier[i], this);
+                        for (let i = DataRowIdentifier.Status; i <= DataRowIdentifier.ID; i++) {
+                            css_uniqueclass = false;
+                            const label = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextblock', this.__id + '.label-' + DataRowIdentifier[i], this);
+                            let wtch_ipt;
+                            switch (i) {
+                                case 0:
+                                    wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiToggleSwitch', this.__id + '.switch-' + DataRowIdentifier[i], this);
+                                    break;
+                                case 1:
+                                    wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextbox', this.__id + '.textbox-' + DataRowIdentifier[i], this);
+                                    break;
+                                case 2:
+                                    wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextbox', this.__id + '.textbox-' + DataRowIdentifier[i], this);
+                                    break;
+                                case 3:
+                                    wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextblock', this.__id + '.unique-' + DataRowIdentifier[i], this);
+                                    css_uniqueclass = true;
+                                    break;
+                                default:
+                                    wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextbox', this.__id + '.textbox-' + DataRowIdentifier[i], this);
+                                    break;
+                            }
                             if (wtch_ipt == null || label == null)
                                 throw new Error("Textbox couldn't be created!");
-                            label.setText('Lamp ' + TextboxIdentifier[i] + ':');
+                            label.setText('Lamp ' + DataRowIdentifier[i] + ':');
                             label.setTextVerticalAlignment("Center");
                             label.setTextHorizontalAlignment("Right");
-                            //wtch_ipt.setPlaceholder(this.__value?.nLightID.toString());
-                            //wtch_ipt.setTextHorizontalAlignment("Center");
-                            wtch_ipt.setContentPadding({ left: 10, top: 0, right: 0, bottom: 0 });
-                            const container = $("<div>").addClass(`value-container ${TextboxIdentifier[i]}`);
+                            const container = $("<div>").addClass(`value-container ${DataRowIdentifier[i]}`);
                             container.append(label.getElement());
-                            container.append(wtch_ipt.getElement());
-                            this.__elementTemplateRoot.append(container);
+                            if (css_uniqueclass == false)
+                                container.append(wtch_ipt.getElement());
+                            else
+                                container.append(wtch_ipt.getElement().addClass("unique"));
                             this.__readwriteables.set(i, {
                                 container: container,
                                 read_write: wtch_ipt,
@@ -93,19 +100,8 @@ var TcHmi;
                         }
                     }
                     else {
-                        throw Error('Textbox already exists!');
+                        throw Error('Data Field already exists!');
                     }
-                    //if (this.__textboxes != null) {
-                    //    for (let [key, value] of this.__textboxes) {
-                    //        value.textbox.setText(TextboxIdentifier[key]);
-                    //        const container = $<HTMLDivElement>("<div>").addClass('value-container');
-                    //        container.append(value.textbox.getElement());
-                    //        container.append(value.label.getElement());
-                    //        this.__elementTemplateRoot.append(container);
-                    //    }
-                    //} else {
-                    //    throw Error('Textbox was not created!');
-                    //}
                 }
                 /**
                 * Is called by the system after the control instance gets part of the current DOM.
@@ -113,10 +109,6 @@ var TcHmi;
                 */
                 __attach() {
                     super.__attach();
-                    //if (this.__light == null)
-                    //    throw new Error("Cannot link instance of Light!");
-                    //if (this.__value == null)
-                    //    throw new Error("Cannot read Light data!");
                     const check = () => {
                         if (this.__light == null)
                             throw new Error("Cannot link instance of Light!");
@@ -127,19 +119,37 @@ var TcHmi;
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
-                    let brightnessInput = this.__readwriteables.get(TextboxIdentifier.Brightness).read_write;
-                    this.__destroyBrightnessSetter = TcHmi.EventProvider.register(brightnessInput.getId() + '.onUserInteractionFinished', () => {
-                        if (check()) {
-                            if (brightnessInput.getText() != "") {
-                                this.__value.nBrightness = Number(brightnessInput.getText());
-                                this.__light.write(this.__value, (result) => {
-                                    if (result.error != 0)
-                                        TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));
-                                });
+                    if (this.__isDimmable) {
+                        const label = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiTextblock', this.__id + '.label-' + DataRowIdentifier[DataRowIdentifier.Brightness], this);
+                        const wtch_ipt = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiNumericInput', this.__id + '.unique-' + DataRowIdentifier[DataRowIdentifier.Brightness], this);
+                        const container = $("<div>").addClass(`value-container ${DataRowIdentifier[DataRowIdentifier.Brightness]}`);
+                        if (wtch_ipt == null || label == null)
+                            throw new Error("Textbox couldn't be created!");
+                        label.setText('Lamp ' + DataRowIdentifier[DataRowIdentifier.Brightness] + ':');
+                        label.setTextVerticalAlignment("Center");
+                        label.setTextHorizontalAlignment("Right");
+                        container.append(label.getElement());
+                        container.append(wtch_ipt.getElement().addClass("unique"));
+                        this.__readwriteables.set(DataRowIdentifier.Brightness, {
+                            container: container,
+                            read_write: wtch_ipt,
+                            label: label
+                        });
+                        this.__elementTemplateRoot.append(container);
+                        let brightnessInput = this.__readwriteables.get(DataRowIdentifier.Brightness).read_write;
+                        this.__destroyBrightnessSetter = TcHmi.EventProvider.register(brightnessInput.getId() + '.onUserInteractionFinished', () => {
+                            if (check()) {
+                                if (brightnessInput.getValue() != null) {
+                                    this.__value.nBrightness = Number(brightnessInput.getValue());
+                                    this.__light.write(this.__value, (result) => {
+                                        if (result.error != 0)
+                                            TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));
+                                    });
+                                }
                             }
-                        }
-                    });
-                    let nameInput = this.__readwriteables.get(TextboxIdentifier.Name).read_write;
+                        });
+                    }
+                    let nameInput = this.__readwriteables.get(DataRowIdentifier.Name).read_write;
                     this.__destroyNameSetter = TcHmi.EventProvider.register(nameInput.getId() + '.onUserInteractionFinished', () => {
                         if (check()) {
                             if (nameInput.getText() != "") {
@@ -151,7 +161,7 @@ var TcHmi;
                             }
                         }
                     });
-                    let addressInput = this.__readwriteables.get(TextboxIdentifier.Address).read_write;
+                    let addressInput = this.__readwriteables.get(DataRowIdentifier.Address).read_write;
                     this.__destroyAddressSetter = TcHmi.EventProvider.register(addressInput.getId() + '.onUserInteractionFinished', () => {
                         if (check()) {
                             if (addressInput.getText() != "") {
@@ -163,17 +173,18 @@ var TcHmi;
                             }
                         }
                     });
-                    //let stateInput = this.__readwriteables.get(TextboxIdentifier.Status)!.read_write;
-                    //  this.__destroyStateSetter = EventProvider.register(stateInput.getId() + '.onUserInteractionFinished', () => {
-                    //       if (check()) {if (stateInput.getText() != "") {
-                    //          this.__value!.Status = stateInput.getText();
-                    //          this.__light!.write(this.__value, (result) => {
-                    //              if (result.error != 0)
-                    //                  TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));
-                    //          })
-                    //      }
-                    //  });
-                    //}
+                    let stateInput = this.__readwriteables.get(DataRowIdentifier.Status).read_write;
+                    this.__destroyStateSetter = TcHmi.EventProvider.register(stateInput.getId() + '.onUserInteractionFinished', () => {
+                        if (check()) {
+                            if (stateInput.getToggleState() != undefined) {
+                                this.__value.bState = Boolean(stateInput.getToggleState());
+                                this.__light.write(this.__value, (result) => {
+                                    if (result.error != 0)
+                                        TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));
+                                });
+                            }
+                        }
+                    });
                 }
                 /**
                 * Is called by the system after the control instance is no longer part of the current DOM.
@@ -222,10 +233,6 @@ var TcHmi;
                         // if we have no value to set we have to fall back to the defaultValueInternal from description.json
                         light = this.getAttributeDefaultValueInternal('Light');
                     }
-                    //if (tchmi_equal(light, this.__light)) {
-                    //    // skip processing when the value has not changed
-                    //    return;
-                    //}
                     // remember the new value
                     this.__light = light;
                     // inform the system that the function has a changed result.
@@ -243,29 +250,62 @@ var TcHmi;
                     }
                     else {
                         this.__destroyLightWatch = this.__light.watch((__instanceOfLight) => {
-                            var _a, _b, _c, _d, _e, _f;
                             if (this.__readwriteables != null) {
                                 if (__instanceOfLight.value != null) {
                                     if (Framework_LightControlUnit.isILight(__instanceOfLight.value)) {
                                         this.__value = __instanceOfLight.value;
                                         if (__instanceOfLight.value.bState != null) {
-                                            (_a = this.__readwriteables.get(TextboxIdentifier.Status)) === null || _a === void 0 ? void 0 : _a.read_write.setPlaceholder(__instanceOfLight.value.bState.toString());
+                                            let light_switch = this.__readwriteables.get(DataRowIdentifier.Status);
+                                            if (!light_switch)
+                                                return;
+                                            if (light_switch.read_write instanceof TcHmi.Controls.Beckhoff.TcHmiToggleSwitch) {
+                                                if (__instanceOfLight.value.bState) {
+                                                    light_switch.read_write.setToggleState("Active");
+                                                }
+                                                else {
+                                                    light_switch.read_write.setToggleState("Normal");
+                                                }
+                                                //if (this.__isDimmable)
+                                                //    light_switch.read_write.setToggleState("Active");
+                                            }
                                         }
                                         if (__instanceOfLight.value.sName != null) {
-                                            (_b = this.__readwriteables.get(TextboxIdentifier.Name)) === null || _b === void 0 ? void 0 : _b.read_write.setPlaceholder(__instanceOfLight.value.sName);
+                                            let light_name = this.__readwriteables.get(DataRowIdentifier.Name);
+                                            if (!light_name)
+                                                return;
+                                            if (light_name.read_write instanceof TcHmi.Controls.Beckhoff.TcHmiTextbox) {
+                                                light_name.read_write.setPlaceholder(__instanceOfLight.value.sName);
+                                                light_name.read_write.setContentPadding({ left: 10, top: 0, right: 0, bottom: 0 });
+                                            }
                                         }
                                         if (__instanceOfLight.value.sAddress != null) {
-                                            (_c = this.__readwriteables.get(TextboxIdentifier.Address)) === null || _c === void 0 ? void 0 : _c.read_write.setPlaceholder(__instanceOfLight.value.sAddress);
+                                            let light_address = this.__readwriteables.get(DataRowIdentifier.Address);
+                                            if (!light_address)
+                                                return;
+                                            if (light_address.read_write instanceof TcHmi.Controls.Beckhoff.TcHmiTextbox) {
+                                                light_address.read_write.setPlaceholder(__instanceOfLight.value.sAddress);
+                                                light_address.read_write.setContentPadding({ left: 10, top: 0, right: 0, bottom: 0 });
+                                            }
                                         }
                                         if (__instanceOfLight.value.nLightID != null) {
-                                            (_d = this.__readwriteables.get(TextboxIdentifier.ID)) === null || _d === void 0 ? void 0 : _d.read_write.setPlaceholder(__instanceOfLight.value.nLightID.toString());
+                                            let light_id = this.__readwriteables.get(DataRowIdentifier.ID);
+                                            if (!light_id)
+                                                return;
+                                            if (light_id.read_write instanceof TcHmi.Controls.Beckhoff.TcHmiTextblock) {
+                                                light_id.read_write.setText(__instanceOfLight.value.nLightID.toString());
+                                                light_id.read_write.setContentPadding({ left: 10, top: 0, right: 0, bottom: 0 });
+                                                light_id.read_write.setTextVerticalAlignment("Center");
+                                            }
                                         }
                                         if (__instanceOfLight.value.nBrightness != null && __instanceOfLight.value.nBrightness != undefined) {
-                                            (_e = this.__readwriteables.get(TextboxIdentifier.Brightness)) === null || _e === void 0 ? void 0 : _e.read_write.setPlaceholder(__instanceOfLight.value.nBrightness.toString());
-                                        }
-                                        else {
-                                            (_f = this.__readwriteables.get(TextboxIdentifier.Brightness)) === null || _f === void 0 ? void 0 : _f.read_write.setPlaceholder("not applicable");
-                                            //this.__elementTemplateRoot.remove(this.__id + '.textbox-Brightness');
+                                            this.__isDimmable = true;
+                                            let light_brightness = this.__readwriteables.get(DataRowIdentifier.Brightness);
+                                            if (!light_brightness)
+                                                return;
+                                            if (light_brightness.read_write instanceof TcHmi.Controls.Beckhoff.TcHmiNumericInput) {
+                                                light_brightness.read_write.setPlaceholder(__instanceOfLight.value.nBrightness.toString());
+                                                light_brightness.read_write.setContentPadding({ left: 10, top: 0, right: 0, bottom: 0 });
+                                            }
                                         }
                                     }
                                 }

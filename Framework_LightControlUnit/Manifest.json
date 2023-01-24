@@ -23,6 +23,12 @@
       "basePath": "./controlPopUpLightDetails",
       "descriptionFile": "Description.json",
       "toolboxCategory": "Beckhoff.TwinCAT.HMI:202"
+    },
+    {
+      "type": "Control",
+      "basePath": "./controlLightGroupSetup",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": ""
     }
   ],
   "provideMetadata": {

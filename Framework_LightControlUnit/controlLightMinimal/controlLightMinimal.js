@@ -86,11 +86,11 @@ var TcHmi;
                             this.__elementTemplateRoot.append(this.__ellipse.getElement());
                         }
                         else {
-                            throw Error('Ellipse was not created!');
+                            throw Error('Light-Circle was not created!');
                         }
                     }
                     else {
-                        throw Error('Ellipse already exists!');
+                        throw Error('Light-Circle already exists!');
                     }
                 }
                 /**
@@ -118,39 +118,43 @@ var TcHmi;
                                 this.__ellipse.setTop((height - this.__ellipse.getHeight()) / 2);
                             }
                         }
-                        console.log('Resized!');
+                        //console.log('Resized!');
                     });
                     this.__destroyOnPressed = TcHmi.EventProvider.register(this.__id + '.onPressed', () => {
                         if (this.__light != null) {
                             let popup = TcHmi.ControlFactory.create('TcHmi.Controls.Framework_LightControlUnit.controlPopUpLightDetails', this.__id + '-popup', this);
-                            popup === null || popup === void 0 ? void 0 : popup.setWidth(100);
-                            popup === null || popup === void 0 ? void 0 : popup.setWidthUnit('%');
-                            popup === null || popup === void 0 ? void 0 : popup.setHeight(100);
-                            popup === null || popup === void 0 ? void 0 : popup.setHeightUnit('%');
-                            popup === null || popup === void 0 ? void 0 : popup.setLight(this.__light);
-                            TcHmi.BuildingAutomation.DialogWindow.openDialogWindow({
-                                appearance: {
-                                    content: popup === null || popup === void 0 ? void 0 : popup.getElement(),
-                                    headline: {
-                                        textAttributes: {
-                                            text: LightDisplayName[this.__lightid]
+                            if (popup) {
+                                popup.setWidth(100);
+                                popup.setWidthUnit('%');
+                                popup.setHeight(100);
+                                popup.setHeightUnit('%');
+                                popup.setLight(this.__light);
+                                popup.__isDimmable = this.__isDimmable;
+                                TcHmi.BuildingAutomation.DialogWindow.openDialogWindow({
+                                    appearance: {
+                                        content: popup.getElement(),
+                                        headline: {
+                                            textAttributes: {
+                                                text: LightDisplayName[this.__lightid]
+                                            }
+                                        },
+                                        buttons: TcHmi.BuildingAutomation.DialogWindow.Buttons.Cancel,
+                                        layout: {
+                                            height: 500,
+                                            maxHeight: 616,
+                                            minHeight: 128,
+                                            width: 800,
+                                            minWidth: 250,
+                                            maxWidth: 1400
                                         }
                                     },
-                                    buttons: TcHmi.BuildingAutomation.DialogWindow.Buttons.Cancel,
-                                    layout: {
-                                        height: 500,
-                                        maxHeight: 616,
-                                        minHeight: 128,
-                                        width: 800,
-                                        minWidth: 250
+                                    callbacks: {
+                                        cbClosed: () => {
+                                            popup === null || popup === void 0 ? void 0 : popup.destroy();
+                                        }
                                     }
-                                },
-                                callbacks: {
-                                    cbClosed: () => {
-                                        popup === null || popup === void 0 ? void 0 : popup.destroy();
-                                    }
-                                }
-                            });
+                                });
+                            }
                         }
                         else {
                             TcHmi.BuildingAutomation.DialogWindow.alert('Light was not set!');
@@ -196,10 +200,6 @@ var TcHmi;
                         // if we have no value to set we have to fall back to the defaultValueInternal from description.json
                         light = this.getAttributeDefaultValueInternal('Light');
                     }
-                    //if (tchmi_equal(light, this.__light)) {
-                    //    // skip processing when the value has not changed
-                    //    return;
-                    //}
                     // remember the new value
                     this.__light = light;
                     // inform the system that the function has a changed result.
@@ -222,6 +222,7 @@ var TcHmi;
                                 if (data.value != null) {
                                     if (isILight(data.value)) {
                                         if (data.value.nBrightness != null) {
+                                            this.__isDimmable = true;
                                             // process opacity
                                             this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
                                             this.__ellipse.setOpacity(data.value.nBrightness / 100);
@@ -231,13 +232,13 @@ var TcHmi;
                                             }
                                         }
                                         else {
+                                            this.__isDimmable = false;
                                             // process opacity if no brightness is available
                                             this.__ellipse.setOpacity(1);
                                         }
                                         //process state and visibility
                                         if (data.value.bState != null) {
                                             if (data.value.bState) {
-                                                this.__ellipse.setOpacity(1);
                                                 this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
                                             }
                                             else {

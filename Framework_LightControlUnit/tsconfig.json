@@ -30,6 +30,9 @@
     "../Packages/Beckhoff.TwinCAT.HMI.Controls.12.758.8/runtimes/native1.12-tchmi/TcHmiEllipse/TcHmiEllipse.d.ts",
     "../Packages/Beckhoff.TwinCAT.HMI.Controls.12.758.8/runtimes/native1.12-tchmi/TcHmiTextblock/TcHmiTextblock.d.ts",
     "../Packages/Beckhoff.TwinCAT.HMI.Controls.12.758.8/runtimes/native1.12-tchmi/TcHmiTextbox/TcHmiTextbox.d.ts",
+    "../Packages/Beckhoff.TwinCAT.HMI.Controls.12.758.8/runtimes/native1.12-tchmi/TcHmiToggleSwitch/TcHmiToggleSwitch.d.ts",
+    "../Packages/Beckhoff.TwinCAT.HMI.Controls.12.758.8/runtimes/native1.12-tchmi/TcHmiCheckbox/TcHmiCheckbox.d.ts",
+    "../Packages/Beckhoff.TwinCAT.HMI.Controls.12.758.8/runtimes/native1.12-tchmi/TcHmiNumericInput/TcHmiNumericInput.d.ts",
     "../Packages/Beckhoff.TwinCAT.HMI.BA.Framework.1.5.0/runtimes/native1.12-tchmi/index.d.ts"
   ],
   "files": [

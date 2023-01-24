@@ -30,6 +30,9 @@
     "$(Beckhoff.TwinCAT.HMI.Controls).InstallPath/TcHmiEllipse/TcHmiEllipse.d.ts",
     "$(Beckhoff.TwinCAT.HMI.Controls).InstallPath/TcHmiTextblock/TcHmiTextblock.d.ts",
     "$(Beckhoff.TwinCAT.HMI.Controls).InstallPath/TcHmiTextbox/TcHmiTextbox.d.ts",
+    "$(Beckhoff.TwinCAT.HMI.Controls).InstallPath/TcHmiToggleSwitch/TcHmiToggleSwitch.d.ts",
+    "$(Beckhoff.TwinCAT.HMI.Controls).InstallPath/TcHmiCheckbox/TcHmiCheckbox.d.ts",
+    "$(Beckhoff.TwinCAT.HMI.Controls).InstallPath/TcHmiNumericInput/TcHmiNumericInput.d.ts",
     "$(Beckhoff.TwinCAT.HMI.BA.Framework).InstallPath/index.d.ts"
   ],
   "files": [
