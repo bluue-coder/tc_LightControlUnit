@@ -161,7 +161,7 @@
             }
             ]
         </script>
-<div id="ControlLightMinimal_1" data-tchmi-type="TcHmi.Controls.Framework_LightControlUnit.controlLightMinimal" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-light="%s%PLC1.MAIN.fbLightController.fbLightBase_1%/s%">
+<div id="ControlLightMinimal_1" data-tchmi-type="TcHmi.Controls.Framework_LightControlUnit.controlLightMinimal" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-light="%s%PLC1.MAIN.fbLightController%/s%">
 </div>
 <div id="ControlLightMinimal_2" data-tchmi-type="TcHmi.Controls.Framework_LightControlUnit.controlLightMinimal" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-light="%s%PLC1.MAIN.fbLightController.fbLightBase_2%/s%">
 </div>
@@ -483,8 +483,6 @@
   "bottomUnit": "px"
 }
 </script>
-
-
 </div>
 <div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="1" id="ViewDesktopBeckhoffLogo" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-left="0" data-tchmi-top="10" data-tchmi-width="100" data-tchmi-height="80" data-tchmi-zindex="8" data-tchmi-left-unit="%" data-tchmi-width-mode="Content" data-tchmi-height-mode="Value" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-top-unit="%" data-tchmi-background-image-horizontal-alignment="Left" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-max-height="200" data-tchmi-src="Images/Beckhoff_Logo.svg">
 

@@ -34,7 +34,7 @@
         }
 
         .TcHmi_Controls_Framework_LightControlUnit_controlPopUpLightDetails-Template > .value-container > .tchmi-textblock {
-            flex:1;
+            flex: 1;
             max-width: 100px;
         }
 
@@ -43,10 +43,7 @@
         .TcHmi_Controls_Framework_LightControlUnit_controlPopUpLightDetails-Template > .value-container > .unique {
             flex: 2;
             max-width: none;
-
         }
-
-
 
 /* If the main use for this control is interaction
     uncomment the following lines to give user feedback:

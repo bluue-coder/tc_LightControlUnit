@@ -1,10 +1,10 @@
 ﻿{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
-    "TcHmi.Controls.Framework_LightControlUnit.controlLightGroupSetup": {
+    "TcHmi.Controls.Framework_LightControlUnit.controlLightGrid": {
       "type": "object",
       "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
-      "frameworkControlType": "controlLightGroupSetup",
+      "frameworkControlType": "controlLightGrid",
       "frameworkControlNamespace": "TcHmi.Controls.Framework_LightControlUnit"
     }
   }

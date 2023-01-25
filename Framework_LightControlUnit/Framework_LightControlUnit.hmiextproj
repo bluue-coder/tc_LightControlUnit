@@ -54,37 +54,37 @@
   <Import Project="$(TwinCATHmi_Tasks)" />
   <Import Project="$(TwinCATHmi_Targets)" />
   <ItemGroup>
-    <Content Include="controlLightGroupSetup\controlLightGroupSetup.ts">
+    <Content Include="controlLightGrid\controlLightGrid.ts">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Description.json">
+    <Content Include="controlLightGrid\Description.json">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Icons\16x16.png">
+    <Content Include="controlLightGrid\Icons\16x16.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Icons\24x24.png">
+    <Content Include="controlLightGrid\Icons\24x24.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Icons\32x32.png">
+    <Content Include="controlLightGrid\Icons\32x32.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Icons\64x64.png">
+    <Content Include="controlLightGrid\Icons\64x64.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Schema\Types.Schema.json">
+    <Content Include="controlLightGrid\Schema\Types.Schema.json">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Style.css">
+    <Content Include="controlLightGrid\Style.css">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Template.html">
+    <Content Include="controlLightGrid\Template.html">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Themes\Base-Dark\Style.css">
+    <Content Include="controlLightGrid\Themes\Base-Dark\Style.css">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="controlLightGroupSetup\Themes\Base\Style.css">
+    <Content Include="controlLightGrid\Themes\Base\Style.css">
       <SubType>Content</SubType>
     </Content>
     <Content Include="controlPopUpLightDetails\controlPopUpLightDetails.ts">
@@ -165,12 +165,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controlLightGroupSetup\" />
-    <Folder Include="controlLightGroupSetup\Icons\" />
-    <Folder Include="controlLightGroupSetup\Schema\" />
-    <Folder Include="controlLightGroupSetup\Themes\" />
-    <Folder Include="controlLightGroupSetup\Themes\Base-Dark\" />
-    <Folder Include="controlLightGroupSetup\Themes\Base\" />
+    <Folder Include="controlLightGrid\" />
+    <Folder Include="controlLightGrid\Icons\" />
+    <Folder Include="controlLightGrid\Schema\" />
+    <Folder Include="controlLightGrid\Themes\" />
+    <Folder Include="controlLightGrid\Themes\Base-Dark\" />
+    <Folder Include="controlLightGrid\Themes\Base\" />
     <Folder Include="controlLightMinimal" />
     <Folder Include="controlLightMinimal\Icons" />
     <Folder Include="controlLightMinimal\Schema" />

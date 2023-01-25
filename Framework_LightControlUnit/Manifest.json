@@ -29,6 +29,12 @@
       "basePath": "./controlLightGroupSetup",
       "descriptionFile": "Description.json",
       "toolboxCategory": ""
+    },
+    {
+      "type": "Control",
+      "basePath": "./controlLightGrid",
+      "descriptionFile": "Description.json",
+      "toolboxCategory": ""
     }
   ],
   "provideMetadata": {

@@ -55,7 +55,7 @@ module TcHmi {
                 private __light: Symbol | null | undefined;
                 private __value: ILight | null | undefined;
 
-                public __isDimmable/*(isTypeOfPassedLightDimmable: boolean)*/: boolean;                                       //query light type
+                public __isDimmable: boolean;                                       //query light type
 
                 /**
                   * If raised, the control object exists in control cache and constructor of each inheritation level was called.
@@ -221,10 +221,14 @@ module TcHmi {
 
                     let stateInput = this.__readwriteables.get(DataRowIdentifier.Status)!.read_write as TcHmi.Controls.Beckhoff.TcHmiToggleSwitch;
 
-                    this.__destroyStateSetter = EventProvider.register(stateInput.getId() + '.onUserInteractionFinished', () => {
+                    this.__destroyStateSetter = EventProvider.register(stateInput.getId() + '.onToggleStateChanged', () => {
                         if (check()) {
-                            if (stateInput.getToggleState() != undefined) {
-                                this.__value!.bState = Boolean(stateInput.getToggleState());
+                            if (stateInput.getToggleState() != null) {
+                                if (stateInput.getToggleState() === "Active")
+                                    this.__value!.bState = true;
+                                else
+                                    this.__value!.bState = false;
+
                                 this.__light!.write(this.__value, (result) => {
                                     if (result.error != 0)
                                         TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));

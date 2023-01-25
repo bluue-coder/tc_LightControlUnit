@@ -174,10 +174,13 @@ var TcHmi;
                         }
                     });
                     let stateInput = this.__readwriteables.get(DataRowIdentifier.Status).read_write;
-                    this.__destroyStateSetter = TcHmi.EventProvider.register(stateInput.getId() + '.onUserInteractionFinished', () => {
+                    this.__destroyStateSetter = TcHmi.EventProvider.register(stateInput.getId() + '.onToggleStateChanged', () => {
                         if (check()) {
-                            if (stateInput.getToggleState() != undefined) {
-                                this.__value.bState = Boolean(stateInput.getToggleState());
+                            if (stateInput.getToggleState() != null) {
+                                if (stateInput.getToggleState() === "Active")
+                                    this.__value.bState = true;
+                                else
+                                    this.__value.bState = false;
                                 this.__light.write(this.__value, (result) => {
                                     if (result.error != 0)
                                         TcHmi.Log.warnEx(TcHmi.Log.buildMessage(result.details));

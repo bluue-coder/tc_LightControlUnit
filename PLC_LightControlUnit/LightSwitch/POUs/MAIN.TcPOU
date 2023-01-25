@@ -6,7 +6,9 @@ VAR
 	fbLightController	: FB_LightController;
 END_VAR
 VAR CONSTANT
-	MAXIMUM_NUMBER_OF_LIGHTS	: USINT := 8;
+	NUMBER_OF_REG_LIGHTS		: USINT := 4;
+	NUMBER_OF_DIMMABLE_LIGHTS	: USINT := 4;
+	MAXIMUM_NUMBER_OF_LIGHTS	: USINT := NUMBER_OF_DIMMABLE_LIGHTS + NUMBER_OF_REG_LIGHTS;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbLightController();]]></ST>

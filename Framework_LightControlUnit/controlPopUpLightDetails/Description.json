@@ -57,26 +57,26 @@
       "description": "Theme independent style"
     }
   ],
-    "themes": {
-        "Base": {
-            "resources": [
-                {
-                    "name": "Themes/Base/Style.css",
-                    "type": "Stylesheet",
-                    "description": "Theme dependent style"
-                }
-            ]
-        },
-        "Base-Dark": {
-            "resources": [
-                {
-                    "name": "Themes/Base-Dark/Style.css",
-                    "type": "Stylesheet",
-                    "description": "Theme dependent style"
-                }
-            ]
+  "themes": {
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
         }
+      ]
     },
+    "Base-Dark": {
+      "resources": [
+        {
+          "name": "Themes/Base-Dark/Style.css",
+          "type": "Stylesheet",
+          "description": "Theme dependent style"
+        }
+      ]
+    }
+  },
   "attributes": [
   ],
   "attributeCategories": [],
