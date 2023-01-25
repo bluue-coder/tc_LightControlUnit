@@ -81,8 +81,6 @@ var TcHmi;
                         this.__ellipse = TcHmi.ControlFactory.create('TcHmi.Controls.Beckhoff.TcHmiEllipse', this.__id + '.ellipse', this);
                         if (this.__ellipse != null) {
                             this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
-                            //this.__ellipse.setVisibility("Visible");
-                            //this.__ellipse.setOpacity(1);
                             this.__elementTemplateRoot.append(this.__ellipse.getElement());
                         }
                         else {

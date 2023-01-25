@@ -27,6 +27,14 @@
     "DEFAULTTIMEZONE": "client",
     "DEFAULTUSERGROUP": "__SystemUsers",
     "DEFINITIONS": {
+        "PLC1.ARRAY_0..7_OF-I_LightBase": {
+            "items": {
+                "$ref": "#/definitions/PLC1.I_LightBase"
+            },
+            "maxItems": 8,
+            "minItems": 8,
+            "type": "array"
+        },
         "PLC1.FB_LightBase": {
             "attributes": {
                 "TcImplements": "I_LightBase"
@@ -43,6 +51,110 @@
                 },
                 "sName": {
                     "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                }
+            },
+            "type": "object"
+        },
+        "PLC1.FB_LightController": {
+            "attributes": {
+                "contains_implicit_enum": ""
+            },
+            "properties": {
+                "_iLight": {
+                    "$ref": "#/definitions/PLC1.I_LightBase"
+                },
+                "_iLightB": {
+                    "$ref": "#/definitions/PLC1.I_LightDimmable"
+                },
+                "bGroupSwitch": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bSetBrightness": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bSetGroupBrightness": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bSwitch": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "bToggle": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "eSwitchControlledLightObjectByLightID": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/PLC1.Implicit_Enum__FB_LightController__eSwitchControlledLightObjectByLightID"
+                        },
+                        {
+                            "attributes": {
+                                "implicit_enum_type": ""
+                            }
+                        }
+                    ]
+                },
+                "eSwitchOptions": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/PLC1.Implicit_Enum__FB_LightController__eSwitchOptions"
+                        },
+                        {
+                            "attributes": {
+                                "implicit_enum_type": ""
+                            }
+                        }
+                    ]
+                },
+                "fbLightBase_1": {
+                    "$ref": "#/definitions/PLC1.FB_LightBase"
+                },
+                "fbLightBase_2": {
+                    "$ref": "#/definitions/PLC1.FB_LightBase"
+                },
+                "fbLightBase_3": {
+                    "$ref": "#/definitions/PLC1.FB_LightBase"
+                },
+                "fbLightBase_4": {
+                    "$ref": "#/definitions/PLC1.FB_LightBase"
+                },
+                "fbLightDimmable_5": {
+                    "$ref": "#/definitions/PLC1.FB_LightDimmable"
+                },
+                "fbLightDimmable_6": {
+                    "$ref": "#/definitions/PLC1.FB_LightDimmable"
+                },
+                "fbLightDimmable_7": {
+                    "$ref": "#/definitions/PLC1.FB_LightDimmable"
+                },
+                "fbLightDimmable_8": {
+                    "$ref": "#/definitions/PLC1.FB_LightDimmable"
+                },
+                "fbLightGroup": {
+                    "$ref": "#/definitions/PLC1.FB_LightGroup"
+                },
+                "nBrightness": {
+                    "$ref": "tchmi:general#/definitions/USINT"
+                },
+                "tGroupSwitchOFF": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.F_TRIG"
+                },
+                "tGroupSwitchON": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.R_TRIG"
+                },
+                "tSetBrightness": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.R_TRIG"
+                },
+                "tSetGroupBrightness": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.R_TRIG"
+                },
+                "tSwitchOFF": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.F_TRIG"
+                },
+                "tSwitchON": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.R_TRIG"
+                },
+                "tToggle": {
+                    "$ref": "#/definitions/PLC1.Tc2_Standard.R_TRIG"
                 }
             },
             "type": "object"
@@ -66,6 +178,23 @@
                 },
                 "sName": {
                     "$ref": "tchmi:general#/definitions/STRING%2880%29"
+                }
+            },
+            "type": "object"
+        },
+        "PLC1.FB_LightGroup": {
+            "properties": {
+                "CurrentSizeOfLightGroup": {
+                    "$ref": "tchmi:general#/definitions/USINT"
+                },
+                "aLights": {
+                    "$ref": "#/definitions/PLC1.ARRAY_0..7_OF-I_LightBase"
+                },
+                "bIsOn": {
+                    "$ref": "tchmi:general#/definitions/BOOL"
+                },
+                "nCounter": {
+                    "$ref": "tchmi:general#/definitions/USINT"
                 }
             },
             "type": "object"
@@ -132,6 +261,143 @@
                     "$ref": "tchmi:general#/definitions/INT16"
                 }
             ]
+        },
+        "PLC1.Implicit_Enum__FB_LightController__eSwitchOptions": {
+            "allOf": [
+                {
+                    "attributes": {
+                        "generate_implicit_init_function": "",
+                        "qualified_only": ""
+                    },
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                    ],
+                    "options": [
+                        {
+                            "label": "WAIT",
+                            "value": 0
+                        },
+                        {
+                            "label": "TOGGLE",
+                            "value": 1
+                        },
+                        {
+                            "label": "SWITCHON",
+                            "value": 2
+                        },
+                        {
+                            "label": "SWITCHOFF",
+                            "value": 3
+                        },
+                        {
+                            "label": "SETBRIGHTNESS",
+                            "value": 4
+                        },
+                        {
+                            "label": "GROUPSWITCHON",
+                            "value": 5
+                        },
+                        {
+                            "label": "GROUPSWITCHOFF",
+                            "value": 6
+                        },
+                        {
+                            "label": "SETGROUPBRIGHTNESS",
+                            "value": 7
+                        }
+                    ]
+                },
+                {
+                    "$ref": "tchmi:general#/definitions/INT16"
+                }
+            ]
+        },
+        "PLC1.Tc2_Standard.F_TRIG": {
+            "attributes": {
+                "conditionalshow_all_locals": ""
+            },
+            "properties": {
+                "CLK": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "signal to detect"
+                        }
+                    ]
+                },
+                "M": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "conditionalshow": ""
+                            }
+                        }
+                    ]
+                },
+                "Q": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "falling edge at signal detected"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "PLC1.Tc2_Standard.R_TRIG": {
+            "attributes": {
+                "conditionalshow_all_locals": ""
+            },
+            "properties": {
+                "CLK": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "Signal to detect"
+                        }
+                    ]
+                },
+                "M": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "attributes": {
+                                "conditionalshow": ""
+                            }
+                        }
+                    ]
+                },
+                "Q": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/BOOL"
+                        },
+                        {
+                            "comment": "rising edge at signal detected"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
         }
     },
     "DEFLATECOMPRESSIONLEVEL": 5,
@@ -2505,6 +2771,16 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.MAIN.fbLightController": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::fbLightController",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.FB_LightController"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.fbLightController._iLight": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -3571,6 +3847,7 @@
                 "PLC1.MAIN.fbGroupLighting.fbLightController.bToggle": 3,
                 "PLC1.MAIN.fbGroupLighting.fbLightController.nBrightness": 3,
                 "PLC1.MAIN.fbGroupLighting.nSingleLightControl": 3,
+                "PLC1.MAIN.fbLightController": 3,
                 "PLC1.MAIN.fbLightController._iLight": 3,
                 "PLC1.MAIN.fbLightController._iLightB": 3,
                 "PLC1.MAIN.fbLightController.bGroupSwitch": 3,

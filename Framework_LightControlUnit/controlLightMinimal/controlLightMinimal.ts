@@ -5,7 +5,6 @@
 module TcHmi {
     export module Controls {
         export module Framework_LightControlUnit {
-
             export interface ILight {
                 bState: boolean
                 sName: string
@@ -106,9 +105,6 @@ module TcHmi {
 
                         if (this.__ellipse != null) {
                             this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
-                            //this.__ellipse.setVisibility("Visible");
-                            //this.__ellipse.setOpacity(1);
-
                             this.__elementTemplateRoot.append(this.__ellipse.getElement());
                         } else {
                             throw Error('Light-Circle was not created!');
@@ -264,8 +260,7 @@ module TcHmi {
                                             // process opacity
                                             this.__ellipse.setFillColor({ color: 'rgba(255,179,0,1)' });
                                             this.__ellipse.setOpacity(data.value.nBrightness / 100);
-                                            
-                                            
+
                                             if (data.value.nBrightness == 0) {
                                                 this.__ellipse.setOpacity(0.5);
                                                 this.__ellipse.setFillColor({ color: 'black' });

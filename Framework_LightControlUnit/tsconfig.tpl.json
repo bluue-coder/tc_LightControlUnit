@@ -37,6 +37,7 @@
   ],
   "files": [
     "controlLightMinimal/controlLightMinimal.ts",
+    "controlLightGrid/controlLightGrid.ts",
     "controlPopUpLightDetails/controlPopUpLightDetails.ts"
   ]
 }

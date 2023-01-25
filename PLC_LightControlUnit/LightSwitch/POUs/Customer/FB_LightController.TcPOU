@@ -7,16 +7,7 @@ VAR
 	_iLightB								: I_LightDimmable;
 	                    	    			
 	fbLightGroup							: FB_LightGroup;
-	                    	    			
-	fbLightBase_1							: FB_LightBase;
-	fbLightBase_2							: FB_LightBase;
-	fbLightBase_3							: FB_LightBase;
-	fbLightBase_4							: FB_LightBase;
-	fbLightDimmable_5						: FB_LightDimmable;
-	fbLightDimmable_6						: FB_LightDimmable;
-	fbLightDimmable_7						: FB_LightDimmable;
-	fbLightDimmable_8						: FB_LightDimmable;
-	                    	    			
+	
 	nBrightness								: USINT := 100;
 	                    	    			
 	bToggle									: BOOL;
@@ -38,6 +29,10 @@ VAR
 	eSwitchOptions							: (WAIT, TOGGLE, SWITCHON, SWITCHOFF, SETBRIGHTNESS, GROUPSWITCHON, GROUPSWITCHOFF, SETGROUPBRIGHTNESS);
 	
 	eSwitchControlledLightObjectByLightID	: (LIGHT_ONE, LIGHT_TWO, LIGHT_THREE, LIGHT_FOUR, LIGHT_FIVE, LIGHT_SIX, LIGHT_SEVEN, LIGHT_EIGHT);
+	nSwitchControlledLightObjectByLightID	: USINT;
+	
+	aOriginalInstanceOfLightFB				: ARRAY[0..MAIN.NUMBER_OF_REG_LIGHTS-1] OF FB_LightBase;
+	aOriginalInstanceOfDimmableLightFB		: ARRAY[0..MAIN.NUMBER_OF_DIMMABLE_LIGHTS-1] OF FB_LightBase;
 
 END_VAR]]></Declaration>
     <Implementation>
@@ -73,22 +68,31 @@ END_CASE
 
 CASE eSwitchControlledLightObjectByLightID OF
 	LIGHT_ONE:
-		ipLight := fbLightBase_1;
+		nSwitchControlledLightObjectByLightID := 1;
 	LIGHT_TWO:
-		ipLight := fbLightBase_2;
+		nSwitchControlledLightObjectByLightID := 2;
 	LIGHT_THREE:
-		ipLight := fbLightBase_3;
+		nSwitchControlledLightObjectByLightID := 3;
 	LIGHT_FOUR:
-		ipLight := fbLightBase_4;
+		nSwitchControlledLightObjectByLightID := 4;
 	LIGHT_FIVE:
-		ipLight := fbLightDimmable_5;
+		nSwitchControlledLightObjectByLightID := 5;
 	LIGHT_SIX:
-		ipLight := fbLightDimmable_6;
+		nSwitchControlledLightObjectByLightID := 6;
 	LIGHT_SEVEN:
-		ipLight := fbLightDimmable_7;
+		nSwitchControlledLightObjectByLightID := 7;
 	LIGHT_EIGHT:
-		ipLight := fbLightDimmable_8;
+		nSwitchControlledLightObjectByLightID := 8;
 END_CASE
+
+IF nSwitchControlledLightObjectByLightID <= MAIN.NUMBER_OF_REG_LIGHTS THEN
+	ipLight := aOriginalInstanceOfLightFB[nSwitchControlledLightObjectByLightID-1];
+ELSIF nSwitchControlledLightObjectByLightID > MAIN.NUMBER_OF_REG_LIGHTS THEN
+	ipLight := aOriginalInstanceOfDimmableLightFB[nSwitchControlledLightObjectByLightID-MAIN.NUMBER_OF_REG_LIGHTS-1];
+ELSIF nSwitchControlledLightObjectByLightID > MAIN.MAXIMUM_NUMBER_OF_LIGHTS THEN
+	ipLight := aOriginalInstanceOfDimmableLightFB[MAIN.MAXIMUM_NUMBER_OF_LIGHTS-1];
+END_IF
+
 
 tToggle(CLK := bToggle);
 tSwitchON(CLK := bSwitch);
@@ -135,18 +139,20 @@ END_IF]]></ST>
 VAR_INPUT
 	bInitRetains	: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode		: BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+VAR
+	nCounter: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_iLight := fbLightBase_1;
+        <ST><![CDATA[_iLight := aOriginalInstanceOfLightFB[0];
 
-fbLightGroup.ImportLight(fbLightBase_1);
-fbLightGroup.ImportLight(fbLightBase_2);
-fbLightGroup.ImportLight(fbLightBase_3);
-fbLightGroup.ImportLight(fbLightBase_4);
-fbLightGroup.ImportLight(fbLightDimmable_5);
-fbLightGroup.ImportLight(fbLightDimmable_6);
-fbLightGroup.ImportLight(fbLightDimmable_7);
-fbLightGroup.ImportLight(fbLightDimmable_8);]]></ST>
+FOR nCounter := 0 TO MAIN.NUMBER_OF_REG_LIGHTS-1 DO
+fbLightGroup.ImportLight(aOriginalInstanceOfLightFB[nCounter]);
+END_FOR
+
+FOR nCounter := 0 TO MAIN.NUMBER_OF_DIMMABLE_LIGHTS-1 DO
+fbLightGroup.ImportLight(aOriginalInstanceOfDimmableLightFB[nCounter]);
+END_FOR]]></ST>
       </Implementation>
     </Method>
     <Property Name="ipLight" Id="{ec405ff9-3dab-4d63-9f5a-8feda15492ff}">
@@ -164,29 +170,5 @@ fbLightGroup.ImportLight(fbLightDimmable_8);]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <LineIds Name="FB_LightController">
-      <LineId Id="987" Count="1" />
-      <LineId Id="860" Count="27" />
-      <LineId Id="923" Count="16" />
-      <LineId Id="888" Count="0" />
-      <LineId Id="985" Count="0" />
-      <LineId Id="978" Count="6" />
-      <LineId Id="889" Count="0" />
-      <LineId Id="986" Count="0" />
-      <LineId Id="890" Count="29" />
-    </LineIds>
-    <LineIds Name="FB_LightController.FB_init">
-      <LineId Id="45" Count="0" />
-      <LineId Id="63" Count="0" />
-      <LineId Id="44" Count="0" />
-      <LineId Id="64" Count="0" />
-      <LineId Id="66" Count="5" />
-    </LineIds>
-    <LineIds Name="FB_LightController.ipLight.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_LightController.ipLight.Set">
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

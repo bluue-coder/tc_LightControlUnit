@@ -2603,6 +2603,12 @@
       "frameworkControlType": "controlPopUpLightDetails",
       "frameworkControlNamespace": "TcHmi.Controls.Framework_LightControlUnit"
     },
+    "TcHmi.Controls.Framework_LightControlUnit.controlLightGrid": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkControlType": "controlLightGrid",
+      "frameworkControlNamespace": "TcHmi.Controls.Framework_LightControlUnit"
+    },
     "TcHmi.Controls.MyNamespace.MgmtCtrl": {
       "type": "object",
       "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
