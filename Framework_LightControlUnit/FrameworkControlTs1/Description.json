@@ -1,9 +1,9 @@
 ﻿{
   "$schema": "../.hmiframework/Schema/ControlDescription.Schema.json",
   "apiVersion": 1,
-  "name": "controlLightGrid",
+  "name": "FrameworkControlTs1",
   "namespace": "TcHmi.Controls.Framework_LightControlUnit",
-  "displayName": "controlLightGrid",
+  "displayName": "FrameworkControlTs1",
   "version": {
     "full": "1.0.0.0",
     "major": 1,
@@ -47,7 +47,7 @@
   "template": "Template.html",
   "dependencyFiles": [
     {
-      "name": "controlLightGrid.js",
+      "name": "FrameworkControlTs1.js",
       "type": "JavaScript",
       "description": "Contains all the main logic."
     },
@@ -57,45 +57,27 @@
       "description": "Theme independent style"
     }
   ],
-  "themes": {
-    "Base": {
-      "resources": [
-        {
-          "name": "Themes/Base/Style.css",
-          "type": "Stylesheet",
-          "description": "Theme dependent style"
+    "themes": {
+        "Base": {
+            "resources": [
+                {
+                    "name": "Themes/Base/Style.css",
+                    "type": "Stylesheet",
+                    "description": "Theme dependent style"
+                }
+            ]
+        },
+        "Base-Dark": {
+            "resources": [
+                {
+                    "name": "Themes/Base-Dark/Style.css",
+                    "type": "Stylesheet",
+                    "description": "Theme dependent style"
+                }
+            ]
         }
-      ]
     },
-    "Base-Dark": {
-      "resources": [
-        {
-          "name": "Themes/Base-Dark/Style.css",
-          "type": "Stylesheet",
-          "description": "Theme dependent style"
-        }
-      ]
-    }
-  },
   "attributes": [
-    {
-      "name": "data-tchmi-lightscontroller",
-      "propertyName": "LightController",
-      "propertySetterName": "setLightController",
-      "propertyGetterName": "getLightController",
-      "displayName": "LightingController",
-      "visible": true,
-      "themeable": "None",
-      "displayPriority": 10,
-      "type": "tchmi:framework#/definitions/Symbol",
-      "category": "Data",
-      "description": "Controller containing Arrays with Light-Instances",
-      "readOnly": false,
-      "bindable": true,
-      "heritable": true,
-      "defaultValue": null,
-      "defaultValueInternal": null
-    }
   ],
   "attributeCategories": [],
   "functions": [],

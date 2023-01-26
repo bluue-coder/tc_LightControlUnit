@@ -5,6 +5,79 @@
 module TcHmi {
     export module Controls {
         export module Framework_LightControlUnit {
+            export interface ILight {
+                bState: boolean
+                sName: string
+                sAddress: string
+                nLightID: number
+                nBrightness?: number
+            }
+
+            export interface ILightArrayContainer {
+                aOriginalInstanceOfLightFB?: ILight[]
+                aOriginalInstanceOfDimmableLightFB?: ILight[]
+            }
+
+            export function isILight(p: any): p is ILight {
+                if (p == null) {
+                    console.log("Instance not linked properly!");
+                    return false;
+                }
+                if (Object.keys(p).length <= 1)
+                    return false;
+                if (p['bState'] == null || typeof p['bState'] != 'boolean') {
+                    console.log("Instance not linked properly!");
+                    return false;
+                }
+                if (p['nBrightness'] != null && typeof p['nBrightness'] != 'number') {
+                    console.log("Instance not linked properly!");
+                    return false;
+                }
+                console.log("Instance linked!");
+                return true;
+            }
+
+            export function containsLightArray(p: any): p is ILightArrayContainer {
+                if (p == null) {
+                    console.log("Instance not linked properly!");
+                    return false;
+                }
+                if (Object.keys(p).length <= 1)
+                    return false;
+                if (p['aOriginalInstanceOfLightFB'] == null) {
+                    console.log("Instance not linked properly! Instance doesn't contain aOriginalInstanceOfLightFB!");
+                    return false;
+                }
+                if (p['aOriginalInstanceOfDimmableLightFB'] == null) {
+                    console.log("Instance not linked properly! Instance doesn't contain aOriginalInstanceOfDimmableLightFB!");
+                    return false;
+                }
+                console.log("Instance linked!");
+                return true;
+            }
+
+            export function isLightArray(p: any): p is ILight[] {
+                if (p == null) {
+                    console.log("Instance not linked properly! Array is undefined!");
+                    return false;
+                }
+                if (Object.keys(p).length <= 1) {
+                    console.log("Instance is empty!");
+                    return false;
+                }
+                if (p[0] == null) {
+                    console.log("Instance not linked properly! Array is empty!");
+                    return false;
+                }
+                if (isILight(p[0]) != true) {
+                    console.log("Instance is of incorrect data type!!");
+                    return false;
+                }
+
+                console.log("Instance linked!");
+                return true;
+            }
+
             export class controlLightGrid extends TcHmi.Controls.System.TcHmiControl {
                 /*
                 Attribute philosophy
@@ -31,9 +104,17 @@ module TcHmi {
 
                 private __grid: TcHmi.Controls.System.TcHmiGrid | undefined;
 
-                private __destroyLightArrayWatch: DestroyFunction | undefined;
+                private __destroyLightControllerWatch: DestroyFunction | undefined;
+                private __destroyOnAttached: DestroyFunction | undefined;
 
-                private __lightArray: Symbol | null | undefined;
+                private __lightController: Symbol | null | undefined;
+
+                private __lightArray: ILight[];
+
+                private __aColumn: TcHmi.Controls.System.TcHmiGrid.IColumnOptions[];
+                private __aRow: TcHmi.Controls.System.TcHmiGrid.IRowOptions[];
+
+                private __indexPointOfArraySplit: number;
 
                 /**
                   * If raised, the control object exists in control cache and constructor of each inheritation level was called.
@@ -58,8 +139,33 @@ module TcHmi {
                     if (Controls.get(this.__id + '.grid') == null) {
                         this.__grid = ControlFactory.create<TcHmi.Controls.System.TcHmiGrid>('TcHmi.Controls.System.TcHmiGrid', this.__id + '.grid', this);
 
+                        this.__aRow = [{
+                            height: 1,
+                            heightMode: "Value",
+                            heightUnit: "factor",
+                            minHeight: null,
+                            minHeightUnit: null,
+                            maxHeight: null,
+                            maxHeightUnit: null,
+                            overflow: false
+                        },
+                        {
+                            height: 1,
+                            heightMode: "Value",
+                            heightUnit: "factor",
+                            minHeight: null,
+                            minHeightUnit: null,
+                            maxHeight: null,
+                            maxHeightUnit: null,
+                            overflow: false
+                        }
+                        ];
+
                         if (this.__grid != null) {
-                            this.__elementTemplateRoot.append(this.__grid.getElement());
+                            this.__grid.setColumnOptions(this.__aColumn);
+                            this.__grid.setRowOptions(this.__aRow);
+
+                            this.__elementTemplateRoot.append(this.__grid.getElement().addClass("grid"));
                         } else {
                             throw Error('Grid was not created!');
                         }
@@ -78,6 +184,34 @@ module TcHmi {
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
+                    if (this.__grid != null) {
+                            for (var i = 0; i < 2;) {
+                                i = this.__aColumn.push({
+                                    width: 1,
+                                    widthMode: "Value",
+                                    widthUnit: "factor",
+                                    minWidth: null,
+                                    minWidthUnit: null,
+                                    maxWidth: null,
+                                    maxWidthUnit: null,
+                                    overflow: false
+                                });
+                            }
+                            this.__grid.setColumnOptions(this.__aColumn);
+
+                            for (var i = 0; i < this.__lightArray.length; i++) {
+                                
+                                let lightinstance = ControlFactory.create<Framework_LightControlUnit.controlLightMinimal>('TcHmi.Controls.Framework_LightControlUnit.controlPopUpLightDetails', this.__id + '-popup', this);
+                                if (lightinstance) {
+                                    lightinstance.setLight(this.__lightArray[i] as unknown as Symbol);
+                                }
+
+                                this.__grid.addChild(lightinstance);
+                            }
+                        }
+                    //this.__destroyOnAttached = EventProvider.register(this.__id + '.onAttached', () => {
+                        
+                    //});
                 }
 
                 /**
@@ -90,9 +224,12 @@ module TcHmi {
                     /**
                      * Disable everything which is not needed while the control is not part of the active dom.
                      * No need to listen to events for example!
-                     */
-                    if (this.__destroyLightArrayWatch != null)
-                        this.__destroyLightArrayWatch();
+                    // */
+                    if (this.__destroyLightControllerWatch != null)
+                        this.__destroyLightControllerWatch();
+
+                    //if (this.__destroyOnAttached != null)
+                    //    this.__destroyOnAttached();
                 }
 
                 /**
@@ -114,36 +251,50 @@ module TcHmi {
                     */
                 }
                 /**
-                * @description Setter function for 'data-tchmi-lightarray' attribute.
-                * @param lightarray the new value or null
+                * @description Setter function for 'data-tchmi-lightcontroller' attribute.
+                * @param lightcontroller the new value or null
                 */
-                public setLightArray(lightarray: Symbol | null): void {
+                public setLightController(lightcontroller: Symbol | null): void {
                     // check if the converted value is valid
-                    if (!(lightarray instanceof Symbol) || lightarray == null) {
+                    if (!(lightcontroller instanceof Symbol) || lightcontroller == null) {
                         // if we have no value to set we have to fall back to the defaultValueInternal from description.json
-                        lightarray = this.getAttributeDefaultValueInternal('LightArray');
+                        lightcontroller = this.getAttributeDefaultValueInternal('LightArray');
                     }
 
                     // remember the new value
-                    this.__lightArray = lightarray;
+                    this.__lightController = lightcontroller;
 
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'LightArray' });
 
                     // call process function to process the new value
-                    this.__processLightArray();
+                    this.__processLightController();
                 }
                 /**
                 * @description Processor function for 'data-tchmi-lightarray' attribute.
                 */
-                protected __processLightArray() {
+                protected __processLightController() {
                     // process actions with Value
-                    if (this.__lightArray == null) {
+                    if (this.__lightController == null) {
                         //reset array to default
                     } else {
-                        this.__destroyLightArrayWatch = this.__lightArray.watch((data) => {
+                        this.__destroyLightControllerWatch = this.__lightController.watch((data) => {
                             if (this.__grid != null) {
                                 if (data.value != null) {
+                                    if (containsLightArray(data.value)) {
+                                        if (isLightArray(data.value.aOriginalInstanceOfLightFB)) {
+                                            this.__indexPointOfArraySplit = data.value.aOriginalInstanceOfLightFB.length;
+                                            for (var i = 0; i < data.value.aOriginalInstanceOfLightFB.length;) {                                                      //iterate through non dimmable light array
+                                                i = this.__lightArray.push(data.value.aOriginalInstanceOfLightFB[i]);
+                                            }
+                                        }
+                                        if (isLightArray(data.value.aOriginalInstanceOfDimmableLightFB)) {
+                                            for (i = this.__indexPointOfArraySplit; i - this.__indexPointOfArraySplit < data.value.aOriginalInstanceOfDimmableLightFB.length;) {                     //iterate through non dimmable light array
+                                                i = this.__lightArray.push(data.value.aOriginalInstanceOfDimmableLightFB[i]);
+                                            }
+                                        }
+                                        console.log("LightArray linked!");
+                                    }
                                 }
                             }
                         });
@@ -152,8 +303,8 @@ module TcHmi {
                 /**
                 * @description Getter function for 'data-tchmi-value' attribute.
                 */
-                public getLightArray() {
-                    return this.__lightArray;
+                public getLightController() {
+                    return this.__lightController;
                 }
             }
         }

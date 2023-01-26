@@ -5,33 +5,7 @@
 module TcHmi {
     export module Controls {
         export module Framework_LightControlUnit {
-            export interface ILight {
-                bState: boolean
-                sName: string
-                sAddress: string
-                nLightID: number
-                nBrightness?: number
-            }
-
-            export function isILight(p: any): p is ILight {
-                if (p == null) {
-                    console.log("Instance not linked properly!");
-                    return false;
-                }
-                if (Object.keys(p).length <= 1)
-                    return false;
-                if (p['bState'] == null || typeof p['bState'] != 'boolean') {
-                    console.log("Instance not linked properly!");
-                    return false;
-                }
-                if (p['nBrightness'] != null && typeof p['nBrightness'] != 'number') {
-                    console.log("Instance not linked properly!");
-                    return false;
-                }
-                console.log("Instance linked!");
-                return true;
-            }
-
+            
             enum LightDisplayName {
                 Light_ONE = 1,
                 Light_TWO,

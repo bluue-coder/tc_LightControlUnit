@@ -8,25 +8,6 @@ var TcHmi;
     (function (Controls) {
         let Framework_LightControlUnit;
         (function (Framework_LightControlUnit) {
-            function isILight(p) {
-                if (p == null) {
-                    console.log("Instance not linked properly!");
-                    return false;
-                }
-                if (Object.keys(p).length <= 1)
-                    return false;
-                if (p['bState'] == null || typeof p['bState'] != 'boolean') {
-                    console.log("Instance not linked properly!");
-                    return false;
-                }
-                if (p['nBrightness'] != null && typeof p['nBrightness'] != 'number') {
-                    console.log("Instance not linked properly!");
-                    return false;
-                }
-                console.log("Instance linked!");
-                return true;
-            }
-            Framework_LightControlUnit.isILight = isILight;
             let LightDisplayName;
             (function (LightDisplayName) {
                 LightDisplayName[LightDisplayName["Light_ONE"] = 1] = "Light_ONE";
@@ -218,7 +199,7 @@ var TcHmi;
                         this.__destroyLightWatch = this.__light.watch((data) => {
                             if (this.__ellipse != null) {
                                 if (data.value != null) {
-                                    if (isILight(data.value)) {
+                                    if (Framework_LightControlUnit.isILight(data.value)) {
                                         if (data.value.nBrightness != null) {
                                             this.__isDimmable = true;
                                             // process opacity

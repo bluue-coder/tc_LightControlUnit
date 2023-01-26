@@ -13,7 +13,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{834587F4-45B8-4382-A1DE-94A2B9F3075F}" Name="LightSwitch" PrjFilePath="LightSwitch\LightSwitch.plcproj" TmcFilePath="LightSwitch\LightSwitch.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="LightSwitch\LightSwitch.tmc" TmcHash="{8C316E5F-B17A-CD28-8749-A8A860BAD03C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="LightSwitch\LightSwitch.tmc" TmcHash="{DB5F60D5-CC66-F146-F593-6FE918E75925}">
 					<Name>LightSwitch Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

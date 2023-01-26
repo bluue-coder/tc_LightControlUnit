@@ -32,7 +32,7 @@ VAR
 	nSwitchControlledLightObjectByLightID	: USINT;
 	
 	aOriginalInstanceOfLightFB				: ARRAY[0..MAIN.NUMBER_OF_REG_LIGHTS-1] OF FB_LightBase;
-	aOriginalInstanceOfDimmableLightFB		: ARRAY[0..MAIN.NUMBER_OF_DIMMABLE_LIGHTS-1] OF FB_LightBase;
+	aOriginalInstanceOfDimmableLightFB		: ARRAY[0..MAIN.NUMBER_OF_DIMMABLE_LIGHTS-1] OF FB_LightDimmable;
 
 END_VAR]]></Declaration>
     <Implementation>

@@ -14,27 +14,21 @@
     },
     {
       "type": "Control",
-      "basePath": "controlLightMinimal/",
+      "basePath": "./controlLightMinimal",
       "descriptionFile": "Description.json",
-      "toolboxCategory": "Beckhoff.TwinCAT.HMI:201"
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI:200"
     },
     {
       "type": "Control",
       "basePath": "./controlPopUpLightDetails",
       "descriptionFile": "Description.json",
-      "toolboxCategory": "Beckhoff.TwinCAT.HMI:202"
-    },
-    {
-      "type": "Control",
-      "basePath": "./controlLightGroupSetup",
-      "descriptionFile": "Description.json",
-      "toolboxCategory": ""
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI:200"
     },
     {
       "type": "Control",
       "basePath": "./controlLightGrid",
       "descriptionFile": "Description.json",
-      "toolboxCategory": ""
+      "toolboxCategory": "Beckhoff.TwinCAT.HMI:200"
     }
   ],
   "provideMetadata": {

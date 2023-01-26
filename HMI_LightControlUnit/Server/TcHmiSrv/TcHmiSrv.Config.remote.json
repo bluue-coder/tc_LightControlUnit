@@ -4,6 +4,10 @@
     "VIRTUALDIRECTORIES": {
         "/": "www",
         "/Blinker": "..\\..\\Blinker",
+        "/FrameworkPrj1": "..\\..\\FrameworkPrj1",
+        "/Framework_LightControl": "..\\..\\Framework_LightControl",
+        "/Framework_LightControlUnit": "..\\..\\Framework_LightControlUnit",
+        "/Framework_LightControls": "..\\..\\Framework_LightControls",
         "/Framework_PopUpWindow_Light": "..\\..\\Framework_PopUpWindow_Light"
     }
 }
