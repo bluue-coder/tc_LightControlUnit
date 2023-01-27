@@ -374,7 +374,7 @@
 <div id="ControlLightGrid" data-tchmi-type="TcHmi.Controls.Framework_LightControlUnit.controlLightGrid" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-lightsarray="%s%PLC1.MAIN.fbLightController%/s%" data-tchmi-lightscontroller="%s%PLC1.MAIN.fbLightController%/s%">
 </div>
 </div>
-<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="1" id="ViewDesktopBeckhoffLogo" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-left="0" data-tchmi-top="10" data-tchmi-width="100" data-tchmi-height="80" data-tchmi-zindex="8" data-tchmi-left-unit="%" data-tchmi-width-mode="Content" data-tchmi-height-mode="Value" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-top-unit="%" data-tchmi-background-image-horizontal-alignment="Left" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-max-height="200" data-tchmi-src="Images/Beckhoff_Logo.svg">
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="1" id="ViewDesktopBeckhoffLogo" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-left="0" data-tchmi-top="10" data-tchmi-width="20" data-tchmi-height="80" data-tchmi-zindex="8" data-tchmi-left-unit="%" data-tchmi-width-mode="Value" data-tchmi-height-mode="Value" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-top-unit="%" data-tchmi-background-image-horizontal-alignment="Left" data-tchmi-background-image-vertical-alignment="Center" data-tchmi-max-height="200" data-tchmi-src="Images/Beckhoff_Logo.svg">
 
 
 
@@ -384,7 +384,7 @@
 
 
 </div>
-<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="80" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-text="LightController\nby MerrinB" data-tchmi-top="10" data-tchmi-top-unit="%" data-tchmi-word-wrap="true" data-tchmi-right="2" data-tchmi-right-unit="%" data-tchmi-width-mode="Value" data-tchmi-width="100" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="%f%%ctrl%TcHmiTextblock::RenderedHeight%/ctrl%*0.25%/f%" data-tchmi-text-horizontal-alignment="Right">
+<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="80" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-text="LightController\nby MerrinB" data-tchmi-top="10" data-tchmi-top-unit="%" data-tchmi-word-wrap="true" data-tchmi-right="2" data-tchmi-right-unit="%" data-tchmi-width-mode="Value" data-tchmi-width="100" data-tchmi-text-vertical-alignment="Center" data-tchmi-text-font-size="%f%%ctrl%TcHmiTextblock::RenderedHeight%/ctrl%*0.25%/f%" data-tchmi-text-horizontal-alignment="Right" data-tchmi-zindex="0" data-tchmi-background-image-horizontal-alignment="Center" data-tchmi-background-image-vertical-alignment="Center">
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
