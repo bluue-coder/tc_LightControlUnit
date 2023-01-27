@@ -102,18 +102,13 @@ module TcHmi {
 
                 protected __elementTemplateRoot!: JQuery;
 
-                private __grid: TcHmi.Controls.System.TcHmiGrid | undefined;
+                private __gridExists: boolean = false;
 
                 private __destroyLightControllerWatch: DestroyFunction | undefined;
-                private __destroyOnAttached: DestroyFunction | undefined;
 
                 private __lightController: Symbol | null | undefined;
 
-                private __lightArray: ILight[];
-
-                private __aColumn: TcHmi.Controls.System.TcHmiGrid.IColumnOptions[];
-                private __aRow: TcHmi.Controls.System.TcHmiGrid.IRowOptions[];
-
+                private __lightArray: ILight[] = [];
                 private __indexPointOfArraySplit: number;
 
                 /**
@@ -135,43 +130,6 @@ module TcHmi {
                  */
                 public __init() {
                     super.__init();
-
-                    if (Controls.get(this.__id + '.grid') == null) {
-                        this.__grid = ControlFactory.create<TcHmi.Controls.System.TcHmiGrid>('TcHmi.Controls.System.TcHmiGrid', this.__id + '.grid', this);
-
-                        this.__aRow = [{
-                            height: 1,
-                            heightMode: "Value",
-                            heightUnit: "factor",
-                            minHeight: null,
-                            minHeightUnit: null,
-                            maxHeight: null,
-                            maxHeightUnit: null,
-                            overflow: false
-                        },
-                        {
-                            height: 1,
-                            heightMode: "Value",
-                            heightUnit: "factor",
-                            minHeight: null,
-                            minHeightUnit: null,
-                            maxHeight: null,
-                            maxHeightUnit: null,
-                            overflow: false
-                        }
-                        ];
-
-                        if (this.__grid != null) {
-                            this.__grid.setColumnOptions(this.__aColumn);
-                            this.__grid.setRowOptions(this.__aRow);
-
-                            this.__elementTemplateRoot.append(this.__grid.getElement().addClass("grid"));
-                        } else {
-                            throw Error('Grid was not created!');
-                        }
-                    } else {
-                        throw Error('Grid already exists!');
-                    }
                 }
 
                 /**
@@ -184,34 +142,6 @@ module TcHmi {
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
-                    if (this.__grid != null) {
-                            for (var i = 0; i < 2;) {
-                                i = this.__aColumn.push({
-                                    width: 1,
-                                    widthMode: "Value",
-                                    widthUnit: "factor",
-                                    minWidth: null,
-                                    minWidthUnit: null,
-                                    maxWidth: null,
-                                    maxWidthUnit: null,
-                                    overflow: false
-                                });
-                            }
-                            this.__grid.setColumnOptions(this.__aColumn);
-
-                            for (var i = 0; i < this.__lightArray.length; i++) {
-                                
-                                let lightinstance = ControlFactory.create<Framework_LightControlUnit.controlLightMinimal>('TcHmi.Controls.Framework_LightControlUnit.controlPopUpLightDetails', this.__id + '-popup', this);
-                                if (lightinstance) {
-                                    lightinstance.setLight(this.__lightArray[i] as unknown as Symbol);
-                                }
-
-                                this.__grid.addChild(lightinstance);
-                            }
-                        }
-                    //this.__destroyOnAttached = EventProvider.register(this.__id + '.onAttached', () => {
-                        
-                    //});
                 }
 
                 /**
@@ -227,9 +157,6 @@ module TcHmi {
                     // */
                     if (this.__destroyLightControllerWatch != null)
                         this.__destroyLightControllerWatch();
-
-                    //if (this.__destroyOnAttached != null)
-                    //    this.__destroyOnAttached();
                 }
 
                 /**
@@ -279,23 +206,63 @@ module TcHmi {
                         //reset array to default
                     } else {
                         this.__destroyLightControllerWatch = this.__lightController.watch((data) => {
-                            if (this.__grid != null) {
-                                if (data.value != null) {
-                                    if (containsLightArray(data.value)) {
-                                        if (isLightArray(data.value.aOriginalInstanceOfLightFB)) {
-                                            this.__indexPointOfArraySplit = data.value.aOriginalInstanceOfLightFB.length;
-                                            for (var i = 0; i < data.value.aOriginalInstanceOfLightFB.length;) {                                                      //iterate through non dimmable light array
-                                                i = this.__lightArray.push(data.value.aOriginalInstanceOfLightFB[i]);
-                                            }
+                            if (data.value != null) {
+                                if (containsLightArray(data.value)) {
+                                    if (isLightArray(data.value.aOriginalInstanceOfLightFB)) {
+                                        this.__indexPointOfArraySplit = data.value.aOriginalInstanceOfLightFB.length;
+                                        for (var i = 0; i < data.value.aOriginalInstanceOfLightFB.length;) {                                                                                     //iterate through non dimmable light array
+                                            i = this.__lightArray.push(data.value.aOriginalInstanceOfLightFB[i]);
                                         }
-                                        if (isLightArray(data.value.aOriginalInstanceOfDimmableLightFB)) {
-                                            for (i = this.__indexPointOfArraySplit; i - this.__indexPointOfArraySplit < data.value.aOriginalInstanceOfDimmableLightFB.length;) {                     //iterate through non dimmable light array
-                                                i = this.__lightArray.push(data.value.aOriginalInstanceOfDimmableLightFB[i]);
-                                            }
+                                    }
+                                    if (isLightArray(data.value.aOriginalInstanceOfDimmableLightFB)) {
+                                        for (i = this.__indexPointOfArraySplit; i - this.__indexPointOfArraySplit < data.value.aOriginalInstanceOfDimmableLightFB.length;) {                     //iterate through non dimmable light array
+                                            i = this.__lightArray.push(data.value.aOriginalInstanceOfDimmableLightFB[i - this.__indexPointOfArraySplit]);
                                         }
-                                        console.log("LightArray linked!");
+                                    }
+
+                                    console.log("LightArray linked!");
+
+                                    if (isLightArray(data.value.aOriginalInstanceOfLightFB) && isLightArray(data.value.aOriginalInstanceOfDimmableLightFB)) {
+                                    if (this.__gridExists == false) {
+                                        const gridContainer = $<HTMLDivElement>("<div>").addClass(`grid-container`);
+
+                                        for (var i = 0; i < data.value.aOriginalInstanceOfLightFB.length; i++) {
+                                            let lightinstance = ControlFactory.create<Framework_LightControlUnit.controlLightMinimal>('TcHmi.Controls.Framework_LightControlUnit.controlLightMinimal', this.__id + '-light' + i, this);
+                                            const gridItem = $<HTMLDivElement>("<div>").addClass(`grid-item`);
+                                            if (lightinstance) {
+                                                gridItem.append(lightinstance.getElement());
+                                                lightinstance.setWidth(100);
+                                                lightinstance.setWidthUnit('%');
+                                                lightinstance.setHeight(100);
+                                                lightinstance.setHeightUnit('%');
+                                                lightinstance.setLight(data.value.aOriginalInstanceOfLightFB[i] as unknown as Symbol);
+
+                                            }
+
+                                            if (gridContainer)
+                                                gridContainer.append(gridItem);
+                                        }
+                                        for (var i = 0; i < data.value.aOriginalInstanceOfDimmableLightFB.length; i++) {
+                                            let lightinstance = ControlFactory.create<Framework_LightControlUnit.controlLightMinimal>('TcHmi.Controls.Framework_LightControlUnit.controlLightMinimal', this.__id + '-light' + i, this);
+                                            const gridItem = $<HTMLDivElement>("<div>").addClass(`grid-item`);
+                                            if (lightinstance) {
+                                                gridItem.append(lightinstance.getElement());
+                                                lightinstance.setWidth(100);
+                                                lightinstance.setWidthUnit('%');
+                                                lightinstance.setHeight(100);
+                                                lightinstance.setHeightUnit('%');
+                                                lightinstance.setLight(data.value.aOriginalInstanceOfDimmableLightFB[i] as unknown as Symbol);
+
+                                            }
+
+                                            if (gridContainer)
+                                                gridContainer.append(gridItem);
+                                        }
+                                        this.__elementTemplateRoot.append(gridContainer);
                                     }
                                 }
+                            } else {
+                                throw new Error("No instance  linked! Is PLC running?");
                             }
                         });
                     }

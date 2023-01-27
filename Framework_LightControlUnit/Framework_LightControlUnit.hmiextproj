@@ -120,39 +120,6 @@
     <Content Include="controlPopUpLightDetails\Themes\Base\Style.css">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="FrameworkControlTs1\Description.json">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\FrameworkControlTs1.ts">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Icons\16x16.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Icons\24x24.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Icons\32x32.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Icons\64x64.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Schema\Types.Schema.json">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Style.css">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Template.html">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Themes\Base-Dark\Style.css">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="FrameworkControlTs1\Themes\Base\Style.css">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="tsconfig.tpl.json">
       <SubType>Content</SubType>
       <Visible>true</Visible>
@@ -216,12 +183,6 @@
     <Folder Include="controlPopUpLightDetails\Themes\" />
     <Folder Include="controlPopUpLightDetails\Themes\Base-Dark\" />
     <Folder Include="controlPopUpLightDetails\Themes\Base\" />
-    <Folder Include="FrameworkControlTs1\" />
-    <Folder Include="FrameworkControlTs1\Icons\" />
-    <Folder Include="FrameworkControlTs1\Schema\" />
-    <Folder Include="FrameworkControlTs1\Themes\" />
-    <Folder Include="FrameworkControlTs1\Themes\Base-Dark\" />
-    <Folder Include="FrameworkControlTs1\Themes\Base\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>

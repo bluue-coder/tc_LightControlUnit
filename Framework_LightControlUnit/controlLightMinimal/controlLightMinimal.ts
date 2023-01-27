@@ -5,7 +5,6 @@
 module TcHmi {
     export module Controls {
         export module Framework_LightControlUnit {
-            
             enum LightDisplayName {
                 Light_ONE = 1,
                 Light_TWO,

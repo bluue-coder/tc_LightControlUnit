@@ -1,13 +1,13 @@
 {
-    "CERTIFICATEEXPIRATION": "P14000D",
-    "REQUIREAUTH": 2,
-    "VIRTUALDIRECTORIES": {
-        "/": "www",
-        "/Blinker": "..\\..\\Blinker",
-        "/FrameworkPrj1": "..\\..\\FrameworkPrj1",
-        "/Framework_LightControl": "..\\..\\Framework_LightControl",
-        "/Framework_LightControlUnit": "..\\..\\Framework_LightControlUnit",
-        "/Framework_LightControls": "..\\..\\Framework_LightControls",
-        "/Framework_PopUpWindow_Light": "..\\..\\Framework_PopUpWindow_Light"
-    }
+  "CERTIFICATEEXPIRATION": "P14000D",
+  "REQUIREAUTH": 2,
+  "VIRTUALDIRECTORIES": {
+    "/": "www",
+    "/Blinker": "..\\..\\Blinker",
+    "/FrameworkPrj1": "..\\..\\FrameworkPrj1",
+    "/Framework_LightControl": "..\\..\\Framework_LightControl",
+    "/Framework_LightControlUnit": "..\\..\\Framework_LightControlUnit",
+    "/Framework_LightControls": "..\\..\\Framework_LightControls",
+    "/Framework_PopUpWindow_Light": "..\\..\\Framework_PopUpWindow_Light"
+  }
 }

@@ -1,8 +1,14 @@
 ﻿/* General theme independed control css. */
 
+
+.TcHmi_Controls_System_TcHmiControl, .tchmi-control {
+    position: relative;
+}
+
 .TcHmi_Controls_Framework_LightControlUnit_controlLightMinimal {
     overflow: hidden;
-    border: none;
+    border: 3px solid black;
+    border-radius: 5px;
 }
 
 .TcHmi_Controls_Framework_LightControlUnit_controlLightMinimal-Template {
